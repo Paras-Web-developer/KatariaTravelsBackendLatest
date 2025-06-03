@@ -1,0 +1,7 @@
+{
+  "dependencies": {
+    "laravel-echo": "^1.17.1",
+    "puppeteer": "^24.9.0",
+    "pusher-js": "^8.4.0-rc2"
+  }
+}
