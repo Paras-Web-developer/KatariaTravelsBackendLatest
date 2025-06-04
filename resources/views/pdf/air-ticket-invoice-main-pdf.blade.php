@@ -34,7 +34,7 @@
                                         </div>
 
                                         <div><strong>TICO (Retail):</strong> 50016404</div>
-                                        <!-- <div><strong>TICO (Wholesale):</strong> 50027611</div> -->
+                                        <div><strong>TICO (Wholesale):</strong> 50027611</div>
                                     </td>
                                 </tr>
                             </table>
