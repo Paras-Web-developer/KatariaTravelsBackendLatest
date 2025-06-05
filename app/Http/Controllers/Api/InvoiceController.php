@@ -32,8 +32,8 @@ class InvoiceController extends BaseController
 	{
 		$request->validate([
 			'id' => 'nullable|integer|exists:invoices,id',
-			'invoice_number' => 'required|string|unique:invoices,invoice_number,' . $request->id,
 			'invoice_holder_name' => 'nullable|string|max:255',
+			'invoice_number' => 'nullable|string|unique:invoices,invoice_number,' . $request->id,
 			'transaction_type_id' => 'nullable|integer|exists:transaction_types,id',
 			'transaction_type_agency_id' => 'nullable|integer|exists:transaction_types,id',
 			'agent_user_id' => 'nullable|integer|exists:users,id',
@@ -47,9 +47,7 @@ class InvoiceController extends BaseController
 			'ticket_status' => 'nullable|string|max:50',
 			'reference_number_of_et' => 'nullable|string|max:100',
 			'remarks' => 'nullable|string|max:1000',
-			//'tickets' => 'nullable|json',
-			        'tickets' => 'required|array',
-
+			'tickets' => 'required|array',
 		]);
 
 		$data = $request->only([
@@ -71,6 +69,21 @@ class InvoiceController extends BaseController
 			'tickets',
 		]);
 
+		// Generate invoice number if creating a new invoice
+		// if (!$request->id) {
+		// 	$latestInvoice = Invoice::where('invoice_number', 'like', 'KTT-%')
+		// 		->orderByRaw("CAST(SUBSTRING(invoice_number, 5) AS UNSIGNED) DESC")
+		// 		->first();
+
+		// 	$lastNumber = 0;
+		// 	if ($latestInvoice) {
+		// 		$lastNumber = (int) substr($latestInvoice->invoice_number, 4);
+		// 	}
+
+		// 	$nextNumber = str_pad($lastNumber + 1, 3, '0', STR_PAD_LEFT);
+		// 	$data['invoice_number'] = 'KTT-' . $nextNumber;
+		// }
+
 		$invoice = Invoice::updateOrCreate(
 			['id' => $request->id],
 			$data
@@ -80,6 +93,7 @@ class InvoiceController extends BaseController
 
 		return $this->success(new InvoiceResource($invoice), $message);
 	}
+
 
 	public function delete($id)
 	{
