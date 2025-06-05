@@ -19,14 +19,14 @@ class DatabaseSeeder extends Seeder
         //     'name' => 'Test User',
         //     'email' => 'test@example.com',
         // ]);
-        // $this->call([
-        //     RoleSeeder::class,
-        //     BranchSeeder::class,
-        //     CountrySeeder::class,
-        //     StateSeeder::class,
-        //     CitySeeder::class,
-        // ]);
-        $this->call(WorldAirportsSeeder::class);
+        $this->call([
+            RoleSeeder::class,
+            BranchSeeder::class,
+            CountrySeeder::class,
+            StateSeeder::class,
+            CitySeeder::class,
+        ]);
+       // $this->call(WorldAirportsSeeder::class);
 
     }
 }
