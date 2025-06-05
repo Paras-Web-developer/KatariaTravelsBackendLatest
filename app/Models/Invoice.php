@@ -61,6 +61,10 @@ class Invoice extends Authenticatable
         'reference_number_of_et',
         'remarks',
 ];
+protected $casts = [
+    'tickets' => 'array',  // Laravel will automatically serialize to JSON on save, deserialize on retrieve
+];
+
     public function supplier(): BelongsTo
     {
         return $this->belongsTo(Supplier::class, 'supplier_id');

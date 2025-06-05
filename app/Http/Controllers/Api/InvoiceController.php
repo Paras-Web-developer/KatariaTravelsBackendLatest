@@ -47,7 +47,9 @@ class InvoiceController extends BaseController
 			'ticket_status' => 'nullable|string|max:50',
 			'reference_number_of_et' => 'nullable|string|max:100',
 			'remarks' => 'nullable|string|max:1000',
-			'tickets' => 'nullable|json',
+			//'tickets' => 'nullable|json',
+			        'tickets' => 'required|array',
+
 		]);
 
 		$data = $request->only([
