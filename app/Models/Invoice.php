@@ -73,6 +73,11 @@ class Invoice extends Authenticatable
     {
         return $this->belongsTo(TransactionType::class, 'transaction_type_id');
     }
+     public function transactionTypeAgency(): BelongsTo
+    {
+        return $this->belongsTo(TransactionType::class, 'transaction_type_agency_id');
+    }
+    
 
 
     // Define the relationship with the AirLine model (if necessary)

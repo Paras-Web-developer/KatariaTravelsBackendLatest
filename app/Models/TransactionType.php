@@ -37,6 +37,12 @@ class TransactionType extends Model
     {
         return $this->hasMany(Invoice::class, 'transaction_type_id');
     }
+    public function invoicesAgency(): HasMany
+    {
+        return $this->hasMany(Invoice::class, 'transaction_type_agency_id');
+    }
+
+    
 
     public function otherServices(): HasMany
     {
