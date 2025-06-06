@@ -44,7 +44,8 @@ class Invoice extends Authenticatable
     // ];
 
     protected $fillable = [
-     'agent_user_id',
+        'parent_id',
+        'agent_user_id',
         'transaction_type_id',
         'transaction_type_agency_id',
         'supplier_id',
@@ -61,9 +62,20 @@ class Invoice extends Authenticatable
         'reference_number_of_et',
         'remarks',
 ];
-protected $casts = [
-    'tickets' => 'array',  // Laravel will automatically serialize to JSON on save, deserialize on retrieve
-];
+    protected $casts = [
+        'tickets' => 'array',  // Laravel will automatically serialize to JSON on save, deserialize on retrieve
+    ];
+
+    function parent(): BelongsTo
+	{
+		return $this->belongsTo(Invoice::class, 'parent_id');
+	}
+
+	function children(): HasMany
+	{
+		return $this->hasMany(Invoice::class, 'parent_id');
+	}
+
 
     public function supplier(): BelongsTo
     {

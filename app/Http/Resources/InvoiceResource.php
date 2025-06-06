@@ -14,6 +14,11 @@ class InvoiceResource extends JsonResource
     {
         return [
             'id' => $this->id,
+
+            'parent_id' => $this->parent_id,
+			'parent' => new InvoiceResource($this->whenLoaded('parent')),
+			'children' => InvoiceResource::collection($this->whenLoaded('children')),
+
             'transaction_type_id' => $this->transaction_type_id,
             'transactionType' => new TransactionTypeResource($this->whenLoaded('transactionType')),
 

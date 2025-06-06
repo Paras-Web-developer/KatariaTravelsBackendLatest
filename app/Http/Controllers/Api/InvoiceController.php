@@ -21,8 +21,17 @@ class InvoiceController extends BaseController
 	{
 		$limit = $request->get('limit', 999);
 		$response = $this->invoiceRepo->filter()
-			->with(['supplier', 'agentUser', 'transactionType', 'transactionTypeAgency', 'airLine', 'enquiry'])
-			->latest()
+			->with([
+				'supplier',
+				'agentUser',
+				'transactionType',
+				'transactionTypeAgency',
+				'airLine',
+				'enquiry',
+				'parent',
+				'children',
+			])->latest()
+			->whereNull('parent_id')
 			->paginate($limit);
 
 		return $this->successWithPaginateData(InvoiceResource::collection($response), $response);
@@ -30,10 +39,13 @@ class InvoiceController extends BaseController
 
 	public function saveAndUpdate(Request $request)
 	{
+		//dd($request->all());
 		$request->validate([
 			'id' => 'nullable|integer|exists:invoices,id',
+			'parent_id' => 'nullable|integer|exists:invoices,id',
 			'invoice_holder_name' => 'nullable|string|max:255',
-			'invoice_number' => 'nullable|string|unique:invoices,invoice_number,' . $request->id,
+			'invoice_number' => 'sometimes|string|unique:invoices,invoice_number,' . $request->id . ',id',
+			//'invoice_number' => 'nullable|string|unique:invoices,invoice_number,' . $request->id,
 			'transaction_type_id' => 'nullable|integer|exists:transaction_types,id',
 			'transaction_type_agency_id' => 'nullable|integer|exists:transaction_types,id',
 			'agent_user_id' => 'nullable|integer|exists:users,id',
@@ -67,32 +79,25 @@ class InvoiceController extends BaseController
 			'reference_number_of_et',
 			'remarks',
 			'tickets',
+			'parent_id',
 		]);
 
-		// Generate invoice number if creating a new invoice
-		// if (!$request->id) {
-		// 	$latestInvoice = Invoice::where('invoice_number', 'like', 'KTT-%')
-		// 		->orderByRaw("CAST(SUBSTRING(invoice_number, 5) AS UNSIGNED) DESC")
-		// 		->first();
-
-		// 	$lastNumber = 0;
-		// 	if ($latestInvoice) {
-		// 		$lastNumber = (int) substr($latestInvoice->invoice_number, 4);
-		// 	}
-
-		// 	$nextNumber = str_pad($lastNumber + 1, 3, '0', STR_PAD_LEFT);
-		// 	$data['invoice_number'] = 'KTT-' . $nextNumber;
-		// }
-
-		$invoice = Invoice::updateOrCreate(
+		$invoiceParent = Invoice::updateOrCreate(
 			['id' => $request->id],
 			$data
 		);
 
+		if ($request->id!=Null) {
+			$data['parent_id'] = $request->id;
+			$data['invoice_number'] = $invoiceParent->invoice_number;
+			$childInvoice = Invoice::create($data);
+		}
+
 		$message = $request->id ? 'Invoice updated successfully.' : 'Invoice created successfully.';
 
-		return $this->success(new InvoiceResource($invoice), $message);
+		return $this->success(new InvoiceResource($invoiceParent), $message);
 	}
+
 
 
 	public function delete($id)
