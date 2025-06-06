@@ -61,7 +61,8 @@ class InvoiceController extends BaseController
 			'date' => 'required|date',
 			'pnr' => 'nullable|string|max:50',
 			'temp_supplier' => 'nullable|string|max:255',
-			'ch_eq_ue' => 'nullable|string|max:255',
+			'ch_eq_ue' => 'nullable|numeric',
+    		'agency_payment' => 'nullable|numeric',
 			'ticket_status' => 'nullable|string|max:50',
 			'reference_number_of_et' => 'nullable|string|max:100',
 			'remarks' => 'nullable|string|max:1000',
@@ -86,6 +87,7 @@ class InvoiceController extends BaseController
 			'remarks',
 			'tickets',
 			'parent_id',
+			'agency_payment',
 		]);
 
 		$invoiceParent = Invoice::updateOrCreate(

@@ -61,6 +61,7 @@ class Invoice extends Authenticatable
         'ticket_status',
         'reference_number_of_et',
         'remarks',
+        'agency_payment',
 ];
     protected $casts = [
         'tickets' => 'array',  // Laravel will automatically serialize to JSON on save, deserialize on retrieve

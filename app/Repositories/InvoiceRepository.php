@@ -89,6 +89,10 @@ class InvoiceRepository extends AppRepository
         if ($request->filled('airLine_id')) {
             $model->where('airLine_id', $request->airLine_id);
         }
+        if ($request->filled('agency_payment')) {
+            $model->where('agency_payment', $request->agency_payment);
+        }
+        
 
         if ($request->filled('pnr')) {
             $model->where('pnr', 'like', '%' . $request->pnr . '%');

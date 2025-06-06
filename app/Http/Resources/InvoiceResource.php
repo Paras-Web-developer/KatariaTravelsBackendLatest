@@ -38,6 +38,7 @@ class InvoiceResource extends JsonResource
             'airLine' => new AirLineResource($this->whenLoaded('airLine')),
 
             'invoice_number' => $this->invoice_number,
+            'agency_payment' => $this->agency_payment,
             'invoice_holder_name' => $this->invoice_holder_name,
             'tickets' => $this->tickets,
             'date' => $this->date,
