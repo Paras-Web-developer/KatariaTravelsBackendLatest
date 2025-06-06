@@ -30,6 +30,12 @@ class InvoiceController extends BaseController
 				'enquiry',
 				'parent',
 				'children',
+				'children.supplier',
+				'children.agentUser',
+				'children.transactionType',
+				'children.transactionTypeAgency',
+				'children.airLine',
+				'children.enquiry',
 			])->latest()
 			->whereNull('parent_id')
 			->paginate($limit);
@@ -91,6 +97,7 @@ class InvoiceController extends BaseController
 			$data['parent_id'] = $request->id;
 			$data['invoice_number'] = $invoiceParent->invoice_number;
 			$childInvoice = Invoice::create($data);
+			
 		}
 
 		$message = $request->id ? 'Invoice updated successfully.' : 'Invoice created successfully.';
