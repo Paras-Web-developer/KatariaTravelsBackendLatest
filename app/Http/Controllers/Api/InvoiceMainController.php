@@ -54,6 +54,7 @@ class InvoiceMainController extends BaseController
 			'updatedByUser',
 			'createdByUser',
 			'fromAirport',
+			'invoice',
 			'toAirport',
 		)->latest()->paginate($limit);
 		return $this->successWithPaginateData(InvoiceMainResource::collection($response), $response);
@@ -172,7 +173,8 @@ class InvoiceMainController extends BaseController
 	public function saveAndUpdate(Request $request)
 	{
 		$request->validate([
-			'id' => 'nullable|integer|exists:invoices_mains,id',			
+			'id' => 'nullable|integer|exists:invoices_mains,id',
+			'invoice_id' =>  'nullable|integer|exists:invoices,id',		
 			'sales_agent_id' => 'nullable|integer|exists:users,id',
 			'flight_enquiry_id' => 'nullable|integer|exists:enquiries,id',
 			'hotel_enquire_id' => 'nullable|integer|exists:hotel_enquires,id',

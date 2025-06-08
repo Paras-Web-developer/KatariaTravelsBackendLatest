@@ -39,6 +39,10 @@ class InvoiceMainRepository extends AppRepository
 		if ($request->has('updated_by_user_id') && isset($request->updated_by_user_id)) {
 			$model->where('updated_by_user_id', $request->updated_by_user_id);
 		}
+		
+		if ($request->has('invoice_id') && isset($request->invoice_id)) {
+			$model->where('invoice_id', $request->invoice_id);
+		}
 		if ($request->has('parent_id') && isset($request->parent_id)) {
 			$model->where('parent_id', $request->parent_id);
 		}

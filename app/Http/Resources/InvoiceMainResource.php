@@ -226,7 +226,9 @@ class InvoiceMainResource extends JsonResource
 		// ---------------------------
 		return [
 			'id'                         => $this->id,
-			'updated_by_user_id' => $this->updated_by_user_id,
+			'invoice_id'   => $this->invoice_id,
+			'invoice' => new InvoiceResource($this->whenLoaded('invoice')),
+ 			'updated_by_user_id' => $this->updated_by_user_id,
 			'updatedByUser' => new UserResource($this->whenLoaded('updatedByUser')),
 			'created_by_user_id' => $this->created_by_user_id,
 			'createdByUser' => new UserResource($this->whenLoaded('createdByUser')),

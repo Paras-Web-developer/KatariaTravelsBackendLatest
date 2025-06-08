@@ -19,6 +19,7 @@ class InvoiceMain extends Authenticatable
 	protected $table = 'invoices_mains';
 
 	protected $fillable = [
+		'invoice_id',
 		'airLine_id',
 		'customer_id',
 		'supplier_id',
@@ -81,6 +82,10 @@ class InvoiceMain extends Authenticatable
 	public function createdByUser(): BelongsTo
 	{
 		return $this->belongsTo(User::class, 'created_by_user_id');
+	}
+	public function invoice(): BelongsTo
+	{
+		return $this->belongsTo(Invoice::class, 'invoice_id');
 	}
 
 	function parent(): BelongsTo
