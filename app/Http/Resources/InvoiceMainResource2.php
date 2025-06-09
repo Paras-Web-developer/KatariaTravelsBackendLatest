@@ -26,9 +26,8 @@ class InvoiceMainResource2 extends JsonResource
 		// ---------------------------
 		return [
 			'id'                         => $this->id,
-				'invoice_id'   => $this->invoice_id,
+			'invoice_id'   => $this->invoice_id,
 			'invoice' => new InvoiceResource($this->whenLoaded('invoice')),
- 
 			'invoice_number'             => $this->invoice_number,
 			'itinerary'                  => $this->itinerary,
 			'mco'                        => $this->mco,
