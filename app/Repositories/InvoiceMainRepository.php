@@ -43,6 +43,11 @@ class InvoiceMainRepository extends AppRepository
 		if ($request->has('invoice_id') && isset($request->invoice_id)) {
 			$model->where('invoice_id', $request->invoice_id);
 		}
+		if ($request->has('sales_agent_id') && isset($request->sales_agent_id)) {
+			$model->where('sales_agent_id', $request->sales_agent_id);
+		}
+
+		
 		if ($request->has('parent_id') && isset($request->parent_id)) {
 			$model->where('parent_id', $request->parent_id);
 		}
