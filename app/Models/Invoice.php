@@ -71,9 +71,9 @@ class Invoice extends Authenticatable
 	{
 		return $this->belongsTo(Invoice::class, 'parent_id');
 	}
-    function invoiceMains(): HasMany
+    function invoiceMains(): HasOne
 	{
-		return $this->hasMany(InvoiceMain::class, 'invoice_id');
+		return $this->hasOne(InvoiceMain::class, 'invoice_id');
 	}
 
     

@@ -31,13 +31,6 @@ class InvoiceController extends BaseController
 				'invoiceMains',
 				'parent',
 				'children',
-				'children.invoiceMains',
-				'children.supplier',
-				'children.agentUser',
-				'children.transactionType',
-				'children.transactionTypeAgency',
-				'children.airLine',
-				'children.enquiry',
 			])->latest()
 			->whereNull('parent_id')
 			->paginate($limit);
