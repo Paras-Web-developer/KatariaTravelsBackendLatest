@@ -39,7 +39,7 @@ class InvoiceMainRepository extends AppRepository
 		if ($request->has('updated_by_user_id') && isset($request->updated_by_user_id)) {
 			$model->where('updated_by_user_id', $request->updated_by_user_id);
 		}
-		
+
 		if ($request->has('invoice_id') && isset($request->invoice_id)) {
 			$model->where('invoice_id', $request->invoice_id);
 		}
@@ -152,6 +152,54 @@ class InvoiceMainRepository extends AppRepository
 		} elseif ($request->has('end_date')) {
 			$model->where('created_at', '<=', date('Y-m-d 23:59:59', strtotime($request->end_date)));
 		}
+
+		if ($request->has('paymentMethod') && isset($request->paymentMethod)) {
+			$paymentMethod = $request->paymentMethod;
+
+			$model->where(function ($query) use ($request, $paymentMethod) {
+
+				if ($request->has('airticket_include') && $request->airticket_include) {
+					$query->orWhere('airticket_include->airticket_from_pax->paymentMethod', $paymentMethod)
+						->orWhere('airticket_include->airticket_to_supplier->paymentMethod', $paymentMethod);
+				}
+
+				if ($request->has('insurance_include') && $request->insurance_include) {
+					$query->orWhere('insurance_include->insurance_from_pax->paymentMethod', $paymentMethod)
+						->orWhere('insurance_include->insurance_to_supplier->paymentMethod', $paymentMethod);
+				}
+
+				if ($request->has('misc_include') && $request->misc_include) {
+					$query->orWhere('misc_include->misc_from_pax->paymentMethod', $paymentMethod)
+						->orWhere('misc_include->misc_to_supplier->paymentMethod', $paymentMethod);
+				}
+
+				if ($request->has('land_package_include') && $request->land_package_include) {
+					$query->orWhere('land_package_include->landpackage_from_pax->paymentMethod', $paymentMethod)
+						->orWhere('land_package_include->landpackage_to_supplier->paymentMethod', $paymentMethod);
+				}
+
+				if ($request->has('hotel_include') && $request->hotel_include) {
+					$query->orWhere('hotel_include->hotel_from_pax->paymentMethod', $paymentMethod)
+						->orWhere('hotel_include->hotel_to_supplier->paymentMethod', $paymentMethod);
+				}
+
+				if ($request->has('cruise_include') && $request->cruise_include) {
+					$query->orWhere('cruise_include->cruise_from_pax->paymentMethod', $paymentMethod)
+						->orWhere('cruise_include->cruise_to_supplier->paymentMethod', $paymentMethod);
+				}
+			});
+		}
+
+
+		if ($request->has('paymentMethod') && isset($request->paymentMethod)) {
+			$paymentMethod = $request->paymentMethod;
+
+			$model->where(function ($query) use ($paymentMethod) {
+				$query->where('hotel_include->hotel_from_pax->paymentMethod', $paymentMethod)
+					->orWhere('hotel_include->hotel_to_supplier->paymentMethod', $paymentMethod);
+			});
+		}
+
 
 
 		return $model;
