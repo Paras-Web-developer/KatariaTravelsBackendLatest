@@ -70,23 +70,23 @@ class InvoiceMainCustomResource extends JsonResource
 		$totalMiscAmount = 0;
 		$totalMiscCommission = 0;
 
-		$hotelFromPaxPaymentMethodId = "";
-		$hotelFromSupplierPaymentMethodId = "";
+		$hotelFromPaxPaymentMethodId = 0;
+		$hotelFromSupplierPaymentMethodId = 0;
 
-		$airticketFromPaxPaymentMethodId = "";
-		$airticketFromSupplierPaymentMethodId = "";
+		$airticketFromPaxPaymentMethodId = 0;
+		$airticketFromSupplierPaymentMethodId = 0;
 
-		$cruiseFromPaxPaymentMethodId = "";
-		$cruiseFromSupplierPaymentMethodId = "";
+		$cruiseFromPaxPaymentMethodId = 0;
+		$cruiseFromSupplierPaymentMethodId = 0;
 
-		$insuranceFromPaxPaymentMethodId = "";
-		$insuranceFromSupplierPaymentMethodId = "";
+		$insuranceFromPaxPaymentMethodId = 0;
+		$insuranceFromSupplierPaymentMethodId = 0;
 
-		$landPackageFromPaxPaymentMethodId = "";
-		$landPackageFromSupplierPaymentMethodId = "";
+		$landPackageFromPaxPaymentMethodId = 0;
+		$landPackageFromSupplierPaymentMethodId = 0;
 
-		$miscFromPaxPaymentMethodId = "";
-		$miscFromSupplierPaymentMethodId = "";
+		$miscFromPaxPaymentMethodId = 0;
+		$miscFromSupplierPaymentMethodId = 0;
 
 		// ---------------------------
 		// Process the hotel field
