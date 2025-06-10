@@ -70,6 +70,24 @@ class InvoiceMainCustomResource extends JsonResource
 		$totalMiscAmount = 0;
 		$totalMiscCommission = 0;
 
+		$hotelFromPaxPaymentMethodId = "";
+		$hotelFromSupplierPaymentMethodId = "";
+
+		$airticketFromPaxPaymentMethodId = "";
+		$airticketFromSupplierPaymentMethodId = "";
+
+		$cruiseFromPaxPaymentMethodId = "";
+		$cruiseFromSupplierPaymentMethodId = "";
+
+		$insuranceFromPaxPaymentMethodId = "";
+		$insuranceFromSupplierPaymentMethodId = "";
+
+		$landPackageFromPaxPaymentMethodId = "";
+		$landPackageFromSupplierPaymentMethodId = "";
+
+		$miscFromPaxPaymentMethodId = "";
+		$miscFromSupplierPaymentMethodId = "";
+
 		// ---------------------------
 		// Process the hotel field
 		// ---------------------------
@@ -82,6 +100,10 @@ class InvoiceMainCustomResource extends JsonResource
 			$totalAmount = $totalAmount + $totalHotelAmount;
 			$totalHotelCommission = $hotel['hotel_from_pax']['commission'] ?? null;
 			$totalCommission = $totalCommission + $totalHotelCommission;
+			$hotelFromPaxPaymentMethodId = $hotel['hotel_from_pax']['paymentMethod'] ?? null;
+		}
+		if ($hotel && isset($hotel['hotel_to_supplier'])) {
+			$hotelFromSupplierPaymentMethodId = $hotel['hotel_to_supplier']['paymentMethod'] ?? null;
 		}
 
 		$airticket = $this->airticket;
@@ -93,6 +115,11 @@ class InvoiceMainCustomResource extends JsonResource
 			$totalAmount = $totalAmount + $totalairTicketAmount;
 			$totalairTicketCommission = $airticket['airticket_from_pax']['commission'] ?? null;
 			$totalCommission = $totalCommission + $totalairTicketCommission;
+			$airticketFromPaxPaymentMethodId = $airticket['airticket_from_pax']['paymentMethod'] ?? null;
+		}
+
+		if ($airticket && isset($airticket['airticket_to_supplier'])) {
+			$airticketFromSupplierPaymentMethodId = $airticket['airticket_to_supplier']['paymentMethod'] ?? null;
 		}
 
 		$cruise = $this->cruise;
@@ -104,6 +131,11 @@ class InvoiceMainCustomResource extends JsonResource
 			$totalAmount = $totalAmount + $totalCruiseAmount;
 			$totalCruiseCommission = $cruise['cruise_from_pax']['commission'] ?? null;
 			$totalCommission = $totalCommission + $totalCruiseCommission;
+			$cruiseFromPaxPaymentMethodId = $cruise['cruise_from_pax']['paymentMethod'] ?? null;
+		}
+
+		if ($cruise && isset($cruise['cruise_to_supplier'])) {
+			$cruiseFromSupplierPaymentMethodId = $cruise['cruise_to_supplier']['paymentMethod'] ?? null;
 		}
 
 		$insurance = $this->insurance;
@@ -115,6 +147,11 @@ class InvoiceMainCustomResource extends JsonResource
 			$totalAmount = $totalAmount + $totalInsuranceAmount;
 			$totalInsuranceCommission = $insurance['insurance_from_pax']['commission'] ?? null;
 			$totalCommission = $totalCommission + $totalInsuranceCommission;
+			$insuranceFromPaxPaymentMethodId = $insurance['insurance_from_pax']['paymentMethod'] ?? null;
+
+		}
+		if ($insurance && isset($insurance['insurance_to_supplier'])) {
+			$insuranceFromSupplierPaymentMethodId = $cruise['insurance_to_supplier']['paymentMethod'] ?? null;
 		}
 
 		$land_package = $this->land_package;
@@ -126,6 +163,11 @@ class InvoiceMainCustomResource extends JsonResource
 			$totalAmount = $totalAmount + $totalLandPackageAmount;
 			$totalLandPackageCommission = $land_package['landpackage_from_pax']['commission'] ?? null;
 			$totalCommission = $totalCommission + $totalLandPackageCommission;
+			$landPackageFromPaxPaymentMethodId =   $land_package['landpackage_from_pax']['paymentMethod'] ?? null;
+		}
+
+		if ($land_package && isset($land_package['landpackage_to_supplier'])) {
+			$landPackageFromSupplierPaymentMethodId = $land_package['landpackage_to_supplier']['paymentMethod'] ?? null;
 		}
 
 		$misc = $this->misc;
@@ -137,6 +179,11 @@ class InvoiceMainCustomResource extends JsonResource
 			$totalAmount = $totalAmount + $totalMiscAmount;
 			$totalMiscCommission = $misc['misc_from_pax']['commission'] ?? null;
 			$totalCommission = $totalCommission + $totalMiscCommission;
+			$miscFromPaxPaymentMethodId =   $misc['misc_from_pax']['paymentMethod'] ?? null;
+		}
+
+		if ($misc && isset($misc['misc_to_supplier'])) {
+			$miscFromSupplierPaymentMethodId = $misc['misc_to_supplier']['paymentMethod'] ?? null;
 		}
 
 		//dd($totalAmount , $totalCommission);
@@ -183,6 +230,21 @@ class InvoiceMainCustomResource extends JsonResource
 			'passenger_details'          => $this->passenger_details,
 			'totalAmount'                => $totalAmount,
 			'totalCommission'            => $totalCommission,
+
+			'hotelFromPaxPaymentMethodId' => $hotelFromPaxPaymentMethodId,
+			'airticketFromPaxPaymentMethodId' => $airticketFromPaxPaymentMethodId,
+			'cruiseFromPaxPaymentMethodId' => $cruiseFromPaxPaymentMethodId,
+			'insuranceFromPaxPaymentMethodId' => $insuranceFromPaxPaymentMethodId,
+			'landPackageFromPaxPaymentMethodId' => $landPackageFromPaxPaymentMethodId,
+			'miscFromPaxPaymentMethodId' => $miscFromPaxPaymentMethodId,
+
+			'hotelFromSupplierPaymentMethodId' => $hotelFromSupplierPaymentMethodId,
+			'airticketFromSupplierPaymentMethodId' => $airticketFromSupplierPaymentMethodId,
+			'cruiseFromSupplierPaymentMethodId' => $cruiseFromSupplierPaymentMethodId,
+			'insuranceFromSupplierPaymentMethodId' => $insuranceFromSupplierPaymentMethodId,
+			'landPackageFromSupplierPaymentMethodId' => $landPackageFromSupplierPaymentMethodId,
+			'miscFromSupplierPaymentMethodId' => $miscFromSupplierPaymentMethodId,
+
 			'created_at'                 => $this->created_at,
 			'updated_at'                 => $this->updated_at,
 		];
