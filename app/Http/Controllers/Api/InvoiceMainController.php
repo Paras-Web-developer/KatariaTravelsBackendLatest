@@ -206,6 +206,7 @@ class InvoiceMainController extends BaseController
 			'hotel_include' => 'nullable|in:true,false',
 			'cruise_include' => 'nullable|in:true,false',
 		]);
+		//dd($request->all())
 
 		$user_id = auth()->user()->id;
 

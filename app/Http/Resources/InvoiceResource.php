@@ -48,7 +48,9 @@ class InvoiceResource extends JsonResource
             'ticket_status' => $this->ticket_status,
             'reference_number_of_et' => $this->reference_number_of_et,
             'remarks' => $this->remarks,
-            'invoiceMains' => InvoiceMainResource2::collection($this->whenLoaded('invoiceMains')),
+            //'invoiceMains' => InvoiceMainResource2::collection($this->whenLoaded('invoiceMains')),
+            'invoiceMain' => new InvoiceMainResource2($this->whenLoaded('invoiceMain')),
+
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
         ];

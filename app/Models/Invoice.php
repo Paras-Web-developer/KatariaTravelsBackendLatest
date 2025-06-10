@@ -11,6 +11,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class Invoice extends Authenticatable
 {
@@ -71,12 +72,14 @@ class Invoice extends Authenticatable
 	{
 		return $this->belongsTo(Invoice::class, 'parent_id');
 	}
-    function invoiceMains(): HasOne
-	{
-		return $this->hasOne(InvoiceMain::class, 'invoice_id');
-	}
-
-    
+    // function invoiceMains(): HasMany
+	// {
+	// 	return $this->hasMany(InvoiceMain::class, 'invoice_id');
+	// }
+    public function invoiceMain(): HasOne
+        {
+            return $this->hasOne(InvoiceMain::class, 'invoice_id');
+        }
 
 	function children(): HasMany
 	{

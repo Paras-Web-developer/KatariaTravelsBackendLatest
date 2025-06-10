@@ -28,7 +28,7 @@ class InvoiceController extends BaseController
 				'transactionTypeAgency',
 				'airLine',
 				'enquiry',
-				'invoiceMains',
+				'invoiceMain',
 				'parent',
 				'children',
 			])->latest()
