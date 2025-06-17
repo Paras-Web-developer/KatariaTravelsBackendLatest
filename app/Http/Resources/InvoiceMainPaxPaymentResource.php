@@ -21,22 +21,45 @@ class InvoiceMainPaxPaymentResource extends JsonResource
 	 */
 	public function toArray(Request $request): array
 	{
-		// ---------------------------
-		// Build and return the resource array.
-		// ---------------------------
 		return [
-			'id'                         => $this->id,
-			'invoice_number'             => $this->invoice_number,
-			'customer_id'                => $this->customer_id,
-			'customer'                   => new CustomerResource($this->whenLoaded('customer')),
-			'airLine_id'                 => $this->airLine_id,
-			'airLine'                    => new AirLineResource($this->whenLoaded('airLine')),
-			'travel_from'                => $this->travel_from,
-			'travel_to'                  => $this->travel_to,
-			'fromAirport' => new WorldAirportResource($this->whenLoaded('fromAirport')),
-			'toAirport' => new WorldAirportResource($this->whenLoaded('toAirport')),
-			'created_at'                 => $this->created_at,
-			'updated_at'                 => $this->updated_at,
+			'id'             => $this->id,
+			'invoice_number' => $this->invoice_number,
+			'customer_id'    => $this->customer_id,
+			// Only customer full name
+			'customer' => $this->whenLoaded('customer', function () {
+				return [
+					'full_name' => $this->customer->full_name,
+				];
+			}),
+			'airLine_id' => $this->airLine_id,
+			// Only airline name
+			'airLine' => $this->whenLoaded('airLine', function () {
+				return [
+					'airline_name' => $this->airLine->airline_name,
+				];
+			}),
+			'travel_from' => $this->travel_from,
+			'travel_to'   => $this->travel_to,
+			// Only selected fromAirport fields
+			'fromAirport' => $this->whenLoaded('fromAirport', function () {
+				return [
+					'icao' => $this->fromAirport->icao,
+					'iata' => $this->fromAirport->iata,
+					'city' => $this->fromAirport->city,
+					'state' => $this->fromAirport->state,
+				];
+			}),
+			// Only selected toAirport fields
+			'toAirport' => $this->whenLoaded('toAirport', function () {
+				return [
+					'icao' => $this->toAirport->icao,
+					'iata' => $this->toAirport->iata,
+					'city' => $this->toAirport->city,
+					'state' => $this->toAirport->state,
+				];
+			}),
+			'created_at' => $this->created_at,
+			'updated_at' => $this->updated_at,
 		];
 	}
 }
