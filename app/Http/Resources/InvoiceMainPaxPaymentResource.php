@@ -46,11 +46,14 @@ class InvoiceMainPaxPaymentResource extends JsonResource
 
 
 		$hotel = $this->hotel;
+		
 		if (is_string($hotel)) {
 			$hotel = json_decode($hotel, true);
 		}
 		if ($hotel && isset($hotel['hotel_from_pax'])) {
+
 			$totalAmount = $hotel['hotel_from_pax']['total'] ?? 0;
+			
 			$totalPaidAmount = $hotel['hotel_from_pax']['amountPaid'] ?? 0;
 			$refund = $hotel['hotel_from_pax']['refund'] ?? 0;
 			$hotelFromPaxPendingPayment = $hotelFromPaxPendingPayment + $totalAmount - $totalPaidAmount -$refund;
@@ -100,6 +103,7 @@ class InvoiceMainPaxPaymentResource extends JsonResource
 			$miscFromPaxPendingPayment = $miscFromPaxPendingPayment + $totalAmount - $totalPaidAmount -$refund;
 		}
 
+			//dd($hotelFromPaxPendingPayment);
 
 		return [
 			'id'             => $this->id,
@@ -138,12 +142,12 @@ class InvoiceMainPaxPaymentResource extends JsonResource
 					'state' => $this->toAirport->state,
 				];
 			}),
-			'hotelFromPaxPendingPayment' => $this->hotelFromPaxPendingPayment,
-			'airticketFromPaxPendingPayment' => $this->airticketFromPaxPendingPayment,
-			'cruiseFromPaxPendingPayment' => $this->cruiseFromPaxPendingPayment,
-			'insuranceFromPaxPendingPayment' => $this->insuranceFromPaxPendingPayment,
-			'landPackageFromPaxPendingPayment' => $this->landPackageFromPaxPendingPayment,
-			'miscFromPaxPendingPayment' => $this->miscFromPaxPendingPayment,
+			'hotelFromPaxPendingPayment' => $hotelFromPaxPendingPayment,
+			'airticketFromPaxPendingPayment' => $airticketFromPaxPendingPayment,
+			'cruiseFromPaxPendingPayment' => $cruiseFromPaxPendingPayment,
+			'insuranceFromPaxPendingPayment' => $insuranceFromPaxPendingPayment,
+			'landPackageFromPaxPendingPayment' => $landPackageFromPaxPendingPayment,
+			'miscFromPaxPendingPayment' => $miscFromPaxPendingPayment,
 			'created_at' => $this->created_at,
 			'updated_at' => $this->updated_at,
 		];
