@@ -279,6 +279,7 @@ Route::middleware('auth:sanctum')->group(function () {
 		Route::delete('delete/{id}', [InvoiceMainController::class, 'delete']);
 		Route::post('send-invoice-mail/{id}/{type}', [InvoiceMainController::class, 'sendInvoiceMail'])->whereIn('type', ['airticket', 'insurance', 'hotel']);
 		Route::get('custom-list', [InvoiceMainController::class, 'customList']);
+		Route::get('pax-payment-list', [InvoiceMainController::class, 'paxPaymentList']);
 	});
 });
 

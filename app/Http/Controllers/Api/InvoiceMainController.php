@@ -6,6 +6,7 @@ use App\Http\Controllers\BaseController;
 
 use App\Http\Resources\InvoiceMainResource;
 use App\Http\Resources\InvoiceMainCustomResource;
+use App\Http\Resources\InvoiceMainPaxPaymentResource;
 use App\Repositories\InvoiceMainRepository;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
@@ -75,6 +76,20 @@ class InvoiceMainController extends BaseController
 		//dd($response);
 		return $this->successWithPaginateData(InvoiceMainCustomResource::collection($response), $response);
 	}
+
+	public function paxPaymentList(Request $request)
+	{
+
+		$limit = $request->has('limit') ? $request->limit : 999;
+		$response = $this->invoiceMainRepo->filter()->where('parent_id', null)
+				->with('customer','airLine','fromAirport' , 'toAirport')
+				->latest()->paginate($limit);
+		//dd($response);
+		return $this->successWithPaginateData(InvoiceMainPaxPaymentResource::collection($response), $response);
+	}
+
+
+	
 
 
 
