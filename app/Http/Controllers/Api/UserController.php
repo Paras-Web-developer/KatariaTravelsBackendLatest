@@ -50,7 +50,7 @@ class UserController extends BaseController
 	public function userList(Request $request)
 	{
 		$user = auth()->user();
-		$limit = $request->has('limit') ? $request->limit : 20;
+		$limit = $request->has('limit') ? $request->limit : 1000;
 
 
 		// $response = $this->userRepo
@@ -76,7 +76,7 @@ class UserController extends BaseController
 			], 403);
 		}
 		$validRoleIds = [1, 3, 4];
-		$limit = $request->has('limit') ? $request->limit : 20;
+		$limit = $request->has('limit') ? $request->limit : 1000;
 		$response = $this->userRepo->filter()
 			->whereIn('role_id', $validRoleIds)
 			->with('enquiries', 'department', 'branch')  // Include related data

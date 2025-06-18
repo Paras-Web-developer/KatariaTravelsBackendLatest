@@ -23,7 +23,7 @@ class SupplierController extends BaseController
 
     public function list(Request $request)
     {
-        $limit = $request->has('limit') ? $request->limit : 999;
+        $limit = $request->has('limit') ? $request->limit : 10000;
         $response = $this->supplierRepo->filter()->with('countryName', 'stateName','cityName')->latest()->paginate($limit);
         return $this->successWithPaginateData(SupplierResource::collection($response), $response);
     }

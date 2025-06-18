@@ -37,7 +37,7 @@ class WorldAirportController extends BaseController
     public function list(Request $request)
     {
 
-        $limit = $request->has('limit') ? $request->limit : 999;
+        $limit = $request->has('limit') ? $request->limit : 1000;
         $response = $this->worldAirportRepo->filter()->latest()->with('supplier')->paginate($limit);
         return $this->successWithPaginateData(WorldAirportResource::collection($response), $response);
     }
