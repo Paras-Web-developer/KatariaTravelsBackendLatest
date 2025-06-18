@@ -158,45 +158,75 @@ class InvoiceMainPaxPaymentRepository extends AppRepository
 			$model->where('created_at', '<=', date('Y-m-d 23:59:59', strtotime($request->end_date)));
 		}
 
+		// // Filter by pending payment status
+		// if ($request->has('pending_payment_status')) {
+		// 	$pendingStatus = (int) $request->pending_payment_status;
+
+		// 	$model->where(function ($query) use ($pendingStatus) {
+		// 		$query->whereRaw('
+		//     (
+		//         CAST(COALESCE(JSON_UNQUOTE(JSON_EXTRACT(airticket, "$.airticket_from_pax.total")), "0") AS DECIMAL(10,2)) -
+		//         CAST(COALESCE(JSON_UNQUOTE(JSON_EXTRACT(airticket, "$.airticket_from_pax.amountPaid")), "0") AS DECIMAL(10,2)) -
+		//         CAST(COALESCE(JSON_UNQUOTE(JSON_EXTRACT(airticket, "$.airticket_from_pax.refund")), "0") AS DECIMAL(10,2)) +
+
+		//         CAST(COALESCE(JSON_UNQUOTE(JSON_EXTRACT(hotel, "$.hotel_from_pax.total")), "0") AS DECIMAL(10,2)) -
+		//         CAST(COALESCE(JSON_UNQUOTE(JSON_EXTRACT(hotel, "$.hotel_from_pax.amountPaid")), "0") AS DECIMAL(10,2)) -
+		//         CAST(COALESCE(JSON_UNQUOTE(JSON_EXTRACT(hotel, "$.hotel_from_pax.refund")), "0") AS DECIMAL(10,2)) +
+
+		//         CAST(COALESCE(JSON_UNQUOTE(JSON_EXTRACT(land_package, "$.land_package_from_pax.total")), "0") AS DECIMAL(10,2)) -
+		//         CAST(COALESCE(JSON_UNQUOTE(JSON_EXTRACT(land_package, "$.land_package_from_pax.amountPaid")), "0") AS DECIMAL(10,2)) -
+		//         CAST(COALESCE(JSON_UNQUOTE(JSON_EXTRACT(land_package, "$.land_package_from_pax.refund")), "0") AS DECIMAL(10,2)) +
+
+		//         CAST(COALESCE(JSON_UNQUOTE(JSON_EXTRACT(cruise, "$.cruise_from_pax.total")), "0") AS DECIMAL(10,2)) -
+		//         CAST(COALESCE(JSON_UNQUOTE(JSON_EXTRACT(cruise, "$.cruise_from_pax.amountPaid")), "0") AS DECIMAL(10,2)) -
+		//         CAST(COALESCE(JSON_UNQUOTE(JSON_EXTRACT(cruise, "$.cruise_from_pax.refund")), "0") AS DECIMAL(10,2)) +
+
+		//         CAST(COALESCE(JSON_UNQUOTE(JSON_EXTRACT(insurance, "$.insurance_from_pax.total")), "0") AS DECIMAL(10,2)) -
+		//         CAST(COALESCE(JSON_UNQUOTE(JSON_EXTRACT(insurance, "$.insurance_from_pax.amountPaid")), "0") AS DECIMAL(10,2)) -
+		//         CAST(COALESCE(JSON_UNQUOTE(JSON_EXTRACT(insurance, "$.insurance_from_pax.refund")), "0") AS DECIMAL(10,2)) +
+
+		//         CAST(COALESCE(JSON_UNQUOTE(JSON_EXTRACT(misc, "$.misc_from_pax.total")), "0") AS DECIMAL(10,2)) -
+		//         CAST(COALESCE(JSON_UNQUOTE(JSON_EXTRACT(misc, "$.misc_from_pax.amountPaid")), "0") AS DECIMAL(10,2)) -
+		//         CAST(COALESCE(JSON_UNQUOTE(JSON_EXTRACT(misc, "$.misc_from_pax.refund")), "0") AS DECIMAL(10,2))
+		//     )
+		//     ' . ($pendingStatus === 0 ? '= 0' : ($pendingStatus === 1 ? '> 0' : '< 0')) . '
+		// ');
+		// 	});
+		// }
+
+
 		// Filter by pending payment status
 		if ($request->has('pending_payment_status')) {
 			$pendingStatus = (int) $request->pending_payment_status;
 
 			$model->where(function ($query) use ($pendingStatus) {
-				$query->whereRaw('
-            (
-                CAST(COALESCE(JSON_UNQUOTE(JSON_EXTRACT(airticket, "$.airticket_from_pax.total")), "0") AS DECIMAL(10,2)) -
-                CAST(COALESCE(JSON_UNQUOTE(JSON_EXTRACT(airticket, "$.airticket_from_pax.amountPaid")), "0") AS DECIMAL(10,2)) -
-                CAST(COALESCE(JSON_UNQUOTE(JSON_EXTRACT(airticket, "$.airticket_from_pax.refund")), "0") AS DECIMAL(10,2)) +
+				$query->whereRaw('(
+            CAST(COALESCE(NULLIF(JSON_UNQUOTE(JSON_EXTRACT(airticket, "$.airticket_from_pax.total")), ""), "0") AS DECIMAL(10,2)) -
+            CAST(COALESCE(NULLIF(JSON_UNQUOTE(JSON_EXTRACT(airticket, "$.airticket_from_pax.amountPaid")), ""), "0") AS DECIMAL(10,2)) -
+            CAST(COALESCE(NULLIF(JSON_UNQUOTE(JSON_EXTRACT(airticket, "$.airticket_from_pax.refund")), ""), "0") AS DECIMAL(10,2)) +
 
-                CAST(COALESCE(JSON_UNQUOTE(JSON_EXTRACT(hotel, "$.hotel_from_pax.total")), "0") AS DECIMAL(10,2)) -
-                CAST(COALESCE(JSON_UNQUOTE(JSON_EXTRACT(hotel, "$.hotel_from_pax.amountPaid")), "0") AS DECIMAL(10,2)) -
-                CAST(COALESCE(JSON_UNQUOTE(JSON_EXTRACT(hotel, "$.hotel_from_pax.refund")), "0") AS DECIMAL(10,2)) +
+            CAST(COALESCE(NULLIF(JSON_UNQUOTE(JSON_EXTRACT(hotel, "$.hotel_from_pax.total")), ""), "0") AS DECIMAL(10,2)) -
+            CAST(COALESCE(NULLIF(JSON_UNQUOTE(JSON_EXTRACT(hotel, "$.hotel_from_pax.amountPaid")), ""), "0") AS DECIMAL(10,2)) -
+            CAST(COALESCE(NULLIF(JSON_UNQUOTE(JSON_EXTRACT(hotel, "$.hotel_from_pax.refund")), ""), "0") AS DECIMAL(10,2)) +
 
-                CAST(COALESCE(JSON_UNQUOTE(JSON_EXTRACT(land_package, "$.land_package_from_pax.total")), "0") AS DECIMAL(10,2)) -
-                CAST(COALESCE(JSON_UNQUOTE(JSON_EXTRACT(land_package, "$.land_package_from_pax.amountPaid")), "0") AS DECIMAL(10,2)) -
-                CAST(COALESCE(JSON_UNQUOTE(JSON_EXTRACT(land_package, "$.land_package_from_pax.refund")), "0") AS DECIMAL(10,2)) +
+            CAST(COALESCE(NULLIF(JSON_UNQUOTE(JSON_EXTRACT(land_package, "$.land_package_from_pax.total")), ""), "0") AS DECIMAL(10,2)) -
+            CAST(COALESCE(NULLIF(JSON_UNQUOTE(JSON_EXTRACT(land_package, "$.land_package_from_pax.amountPaid")), ""), "0") AS DECIMAL(10,2)) -
+            CAST(COALESCE(NULLIF(JSON_UNQUOTE(JSON_EXTRACT(land_package, "$.land_package_from_pax.refund")), ""), "0") AS DECIMAL(10,2)) +
 
-                CAST(COALESCE(JSON_UNQUOTE(JSON_EXTRACT(cruise, "$.cruise_from_pax.total")), "0") AS DECIMAL(10,2)) -
-                CAST(COALESCE(JSON_UNQUOTE(JSON_EXTRACT(cruise, "$.cruise_from_pax.amountPaid")), "0") AS DECIMAL(10,2)) -
-                CAST(COALESCE(JSON_UNQUOTE(JSON_EXTRACT(cruise, "$.cruise_from_pax.refund")), "0") AS DECIMAL(10,2)) +
+            CAST(COALESCE(NULLIF(JSON_UNQUOTE(JSON_EXTRACT(cruise, "$.cruise_from_pax.total")), ""), "0") AS DECIMAL(10,2)) -
+            CAST(COALESCE(NULLIF(JSON_UNQUOTE(JSON_EXTRACT(cruise, "$.cruise_from_pax.amountPaid")), ""), "0") AS DECIMAL(10,2)) -
+            CAST(COALESCE(NULLIF(JSON_UNQUOTE(JSON_EXTRACT(cruise, "$.cruise_from_pax.refund")), ""), "0") AS DECIMAL(10,2)) +
 
-                CAST(COALESCE(JSON_UNQUOTE(JSON_EXTRACT(insurance, "$.insurance_from_pax.total")), "0") AS DECIMAL(10,2)) -
-                CAST(COALESCE(JSON_UNQUOTE(JSON_EXTRACT(insurance, "$.insurance_from_pax.amountPaid")), "0") AS DECIMAL(10,2)) -
-                CAST(COALESCE(JSON_UNQUOTE(JSON_EXTRACT(insurance, "$.insurance_from_pax.refund")), "0") AS DECIMAL(10,2)) +
+            CAST(COALESCE(NULLIF(JSON_UNQUOTE(JSON_EXTRACT(insurance, "$.insurance_from_pax.total")), ""), "0") AS DECIMAL(10,2)) -
+            CAST(COALESCE(NULLIF(JSON_UNQUOTE(JSON_EXTRACT(insurance, "$.insurance_from_pax.amountPaid")), ""), "0") AS DECIMAL(10,2)) -
+            CAST(COALESCE(NULLIF(JSON_UNQUOTE(JSON_EXTRACT(insurance, "$.insurance_from_pax.refund")), ""), "0") AS DECIMAL(10,2)) +
 
-                CAST(COALESCE(JSON_UNQUOTE(JSON_EXTRACT(misc, "$.misc_from_pax.total")), "0") AS DECIMAL(10,2)) -
-                CAST(COALESCE(JSON_UNQUOTE(JSON_EXTRACT(misc, "$.misc_from_pax.amountPaid")), "0") AS DECIMAL(10,2)) -
-                CAST(COALESCE(JSON_UNQUOTE(JSON_EXTRACT(misc, "$.misc_from_pax.refund")), "0") AS DECIMAL(10,2))
-            )
-            ' . ($pendingStatus === 0 ? '= 0' : ($pendingStatus === 1 ? '> 0' : '< 0')) . '
-        ');
+            CAST(COALESCE(NULLIF(JSON_UNQUOTE(JSON_EXTRACT(misc, "$.misc_from_pax.total")), ""), "0") AS DECIMAL(10,2)) -
+            CAST(COALESCE(NULLIF(JSON_UNQUOTE(JSON_EXTRACT(misc, "$.misc_from_pax.amountPaid")), ""), "0") AS DECIMAL(10,2)) -
+            CAST(COALESCE(NULLIF(JSON_UNQUOTE(JSON_EXTRACT(misc, "$.misc_from_pax.refund")), ""), "0") AS DECIMAL(10,2))
+        ) ' . ($pendingStatus === 0 ? '= 0' : ($pendingStatus === 1 ? '> 0' : '< 0')));
 			});
 		}
-
-
-
-
 
 		return $model;
 	}
