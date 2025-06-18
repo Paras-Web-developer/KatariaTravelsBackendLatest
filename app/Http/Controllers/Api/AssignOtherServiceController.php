@@ -24,7 +24,7 @@ class AssignOtherServiceController extends BaseController
     public function assignedOtherEnquiryList(Request $request)
     {
         $user = auth()->user();
-        $limit = $request->has('limit') ? $request->limit : 10;
+        $limit = $request->has('limit') ? $request->limit : 1000;
 
         $query = $this->otherServiceRepo->filter()
             ->with(

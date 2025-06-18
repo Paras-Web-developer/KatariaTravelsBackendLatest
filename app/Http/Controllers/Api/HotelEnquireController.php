@@ -28,7 +28,7 @@ class HotelEnquireController extends BaseController
 
 	public function list(Request $request)
 	{
-		$limit = $request->has('limit') ? $request->limit : 10;
+		$limit = $request->has('limit') ? $request->limit : 1000;
 		$query = $this->hotelEnquireRepo->filter()->with(
 			'transactionType',
 			'createdByUser',
@@ -56,7 +56,7 @@ class HotelEnquireController extends BaseController
 	public function createdByUserList(Request $request)
 	{
 		$user = auth()->user();
-		$limit = $request->has('limit') ? $request->limit : 10;
+		$limit = $request->has('limit') ? $request->limit : 1000;
 		$query = $this->hotelEnquireRepo->filter()->with(
 			'createdByUser',
 			'transactionType',
@@ -417,7 +417,7 @@ class HotelEnquireController extends BaseController
 			$query->where('title', 'LIKE', '%' . $request->title . '%');
 		}
 
-		$limit = $request->has('limit') ? $request->limit : 10;
+		$limit = $request->has('limit') ? $request->limit : 1000;
 
 		$response = $query->with(
 			'createdByUser',

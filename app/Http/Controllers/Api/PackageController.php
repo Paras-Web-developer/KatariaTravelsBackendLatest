@@ -21,7 +21,7 @@ class PackageController extends BaseController
     public function list(Request $request)
     {
        
-        $limit = $request->has('limit') ? $request->limit : 10;
+        $limit = $request->has('limit') ? $request->limit : 1000;
         $response = $this->packageRepo->filter()->with('users')->latest()->paginate($limit);
         return $this->successWithPaginateData(PackageResource::collection($response), $response);
     }

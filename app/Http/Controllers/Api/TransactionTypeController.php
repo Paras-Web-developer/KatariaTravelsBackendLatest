@@ -23,7 +23,7 @@ class TransactionTypeController extends BaseController
     public function list(Request $request)
     {
 
-        $limit = $request->has('limit') ? $request->limit : 999;
+        $limit = $request->has('limit') ? $request->limit : 1000;
         $response = $this->transactionTypeRepo->filter()->latest()->paginate($limit);
         return $this->successWithPaginateData(TransactionTypeResource::collection($response), $response);
     }

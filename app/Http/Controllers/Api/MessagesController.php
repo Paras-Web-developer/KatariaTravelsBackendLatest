@@ -20,7 +20,7 @@ class MessagesController extends BaseController
     public function list(Request $request)
     {
        
-        $limit = $request->has('limit') ? $request->limit : 10;
+        $limit = $request->has('limit') ? $request->limit : 1000;
         $response = $this->messageRepo->filter()->latest()->paginate($limit);
         return $this->successWithPaginateData(MessageResource::collection($response), $response);
     }

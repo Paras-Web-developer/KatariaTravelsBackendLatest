@@ -21,7 +21,7 @@ class RoleController extends BaseController
     public function list(Request $request)
     {
        
-        $limit = $request->has('limit') ? $request->limit : 10;
+        $limit = $request->has('limit') ? $request->limit : 1000;
         $response = $this->roleRepo->filter()->latest()->paginate($limit);
         return $this->successWithPaginateData(RoleResource::collection($response), $response);
     }

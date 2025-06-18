@@ -24,7 +24,7 @@ class PhoneNumberController extends BaseController
     public function list(Request $request)
     {
 
-        $limit = $request->has('limit') ? $request->limit : 999;
+        $limit = $request->has('limit') ? $request->limit : 1000;
         $response = $this->phoneNumberRepo->filter()->latest()->paginate($limit);
         return $this->successWithPaginateData(PhoneNumberResource::collection($response), $response);
     }

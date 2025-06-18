@@ -24,7 +24,7 @@ class CarEnquiryController extends BaseController
     public function list(Request $request)
     {
 
-        $limit = $request->has('limit') ? $request->limit : 5;
+        $limit = $request->has('limit') ? $request->limit : 1000;
         $response = $this->carEnquireRepo->filter()->with(
             'carType',
             'updatedByUser',

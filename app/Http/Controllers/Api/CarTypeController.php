@@ -23,7 +23,7 @@ class CarTypeController extends BaseController
     public function list(Request $request)
     {
 
-        $limit = $request->has('limit') ? $request->limit : 50;
+        $limit = $request->has('limit') ? $request->limit : 1000;
         $response = $this->carTypeRepo->filter()->latest()->paginate($limit);
         return $this->successWithPaginateData(CarTypeResource::collection($response), $response);
     }

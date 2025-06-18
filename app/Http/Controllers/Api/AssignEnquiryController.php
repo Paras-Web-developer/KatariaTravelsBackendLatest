@@ -33,7 +33,7 @@ class AssignEnquiryController extends BaseController
     public function assignedEnquiryList(Request $request)
     {
         $user = auth()->user();
-        $limit = $request->has('limit') ? $request->limit : 10;
+        $limit = $request->has('limit') ? $request->limit : 1000;
 
         $query = $this->enquiriesRepo->filter()
             ->with(

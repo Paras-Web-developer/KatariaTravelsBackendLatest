@@ -42,7 +42,7 @@ class EnquiryController extends BaseController
 
 	public function allEnquiries(Request $request)
 	{
-		$limit = $request->has('limit') ? $request->limit : 10;
+		$limit = $request->has('limit') ? $request->limit : 1000;
 		$response = $this->enquiriesRepo->filter()->with([
 			'packages' => function ($query) {
 				$query->whereNull('parent_id')->with('children');
@@ -99,7 +99,7 @@ class EnquiryController extends BaseController
 	public function list(Request $request)
 	{
 		$user = auth()->user();
-		$limit = $request->has('limit') ? $request->limit : 10;
+		$limit = $request->has('limit') ? $request->limit : 1000;
 
 		$query = $this->enquiriesRepo->filter()
 			->with(
@@ -156,7 +156,7 @@ class EnquiryController extends BaseController
 	public function assignedEnquiryList(Request $request)
 	{
 		$user = auth()->user();
-		$limit = $request->has('limit') ? $request->limit : 10;
+		$limit = $request->has('limit') ? $request->limit : 1000;
 
 		$query = $this->enquiriesRepo->filter()
 			->with(
@@ -1042,7 +1042,7 @@ class EnquiryController extends BaseController
 			$query->where('title', 'LIKE', '%' . $request->title . '%');
 		}
 
-		$limit = $request->has('limit') ? $request->limit : 10;
+		$limit = $request->has('limit') ? $request->limit : 1000;
 
 		$response = $query->with(
 			'assignedToUser',

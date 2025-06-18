@@ -37,7 +37,7 @@ class InvoiceMainController extends BaseController
 	public function list(Request $request)
 	{
 
-		$limit = $request->has('limit') ? $request->limit : 999;
+		$limit = $request->has('limit') ? $request->limit : 1000;
 		$response = $this->invoiceMainRepo->filter()->where('parent_id', null)->with(
 			'hotelEnquiry',
 			'flightEnquiry',
@@ -69,7 +69,7 @@ class InvoiceMainController extends BaseController
 	public function customList(Request $request)
 	{
 
-		$limit = $request->has('limit') ? $request->limit : 999;
+		$limit = $request->has('limit') ? $request->limit : 1000;
 		$response = $this->invoiceMainRepo->filter()->where('parent_id', null)->with(
 			'airLine',
 			'customer',
@@ -84,7 +84,7 @@ class InvoiceMainController extends BaseController
 
 	public function paxPaymentList(Request $request)
 	{
-		$limit = $request->has('limit') ? $request->limit : 999;
+		$limit = $request->has('limit') ? $request->limit : 1000;
 		$response = $this->invoiceMainPaxPaymentRepo->filter()->where('parent_id', null)
 				->with('customer','airLine','fromAirport' , 'toAirport')
 				->latest()->paginate($limit);

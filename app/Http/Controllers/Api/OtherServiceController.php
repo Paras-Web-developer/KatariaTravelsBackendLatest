@@ -25,7 +25,7 @@ class OtherServiceController extends BaseController
     public function list(Request $request)
     {
 
-        $limit = $request->has('limit') ? $request->limit : 999;
+        $limit = $request->has('limit') ? $request->limit : 1000;
         $response = $this->otherServiceRepo->filter()->with(
             'enquirySource',
             'enquiryStatus',
