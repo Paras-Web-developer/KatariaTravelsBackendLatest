@@ -8,6 +8,7 @@ use App\Http\Resources\InvoiceMainResource;
 use App\Http\Resources\InvoiceMainCustomResource;
 use App\Http\Resources\InvoiceMainPaxPaymentResource;
 use App\Repositories\InvoiceMainRepository;
+use App\Repositories\InvoiceMainPaxPaymentRepository;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use App\Models\InvoiceMain;
@@ -23,10 +24,14 @@ class InvoiceMainController extends BaseController
 	protected $invoiceMainRepo;
 	protected $customerRepo;
 
-	public function __construct(InvoiceMainRepository $invoiceMainRepo, CustomerRepository $customerRepo)
+	protected $invoiceMainPaxPaymentRepo;
+
+	public function __construct(InvoiceMainRepository $invoiceMainRepo, CustomerRepository $customerRepo ,
+						InvoiceMainPaxPaymentRepository $invoiceMainPaxPaymentRepo)
 	{
 		$this->invoiceMainRepo = $invoiceMainRepo;
 		$this->customerRepo = $customerRepo;
+		$this->invoiceMainPaxPaymentRepo = $invoiceMainPaxPaymentRepo;
 	}
 
 	public function list(Request $request)
@@ -79,9 +84,8 @@ class InvoiceMainController extends BaseController
 
 	public function paxPaymentList(Request $request)
 	{
-
 		$limit = $request->has('limit') ? $request->limit : 999;
-		$response = $this->invoiceMainRepo->filter()->where('parent_id', null)
+		$response = $this->invoiceMainPaxPaymentRepo->filter()->where('parent_id', null)
 				->with('customer','airLine','fromAirport' , 'toAirport')
 				->latest()->paginate($limit);
 		//dd($response);
