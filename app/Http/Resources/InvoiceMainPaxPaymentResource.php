@@ -41,22 +41,22 @@ class InvoiceMainPaxPaymentResource extends JsonResource
 			$totalAmount = $airticket['airticket_from_pax']['total'] ?? 0;
 			$totalPaidAmount = $airticket['airticket_from_pax']['amountPaid'] ?? 0;
 			$refund = $airticket['airticket_from_pax']['refund'] ?? 0;
-			$airticketFromPaxPendingPayment = $airticketFromPaxPendingPayment + $totalAmount - $totalPaidAmount -$refund;
+			$airticketFromPaxPendingPayment = $airticketFromPaxPendingPayment + $totalAmount - $totalPaidAmount - $refund;
 		}
 
 
 		$hotel = $this->hotel;
-		
+
 		if (is_string($hotel)) {
 			$hotel = json_decode($hotel, true);
 		}
 		if ($hotel && isset($hotel['hotel_from_pax'])) {
 
 			$totalAmount = $hotel['hotel_from_pax']['total'] ?? 0;
-			
+
 			$totalPaidAmount = $hotel['hotel_from_pax']['amountPaid'] ?? 0;
 			$refund = $hotel['hotel_from_pax']['refund'] ?? 0;
-			$hotelFromPaxPendingPayment = $hotelFromPaxPendingPayment + $totalAmount - $totalPaidAmount -$refund;
+			$hotelFromPaxPendingPayment = $hotelFromPaxPendingPayment + $totalAmount - $totalPaidAmount - $refund;
 		}
 
 		$cruise = $this->cruise;
@@ -67,7 +67,7 @@ class InvoiceMainPaxPaymentResource extends JsonResource
 			$totalAmount = $cruise['cruise_from_pax']['total'] ?? 0;
 			$totalPaidAmount = $cruise['cruise_from_pax']['amountPaid'] ?? 0;
 			$refund = $cruise['cruise_from_pax']['refund'] ?? 0;
-			$cruiseFromPaxPendingPayment = $cruiseFromPaxPendingPayment + $totalAmount - $totalPaidAmount -$refund;
+			$cruiseFromPaxPendingPayment = $cruiseFromPaxPendingPayment + $totalAmount - $totalPaidAmount - $refund;
 		}
 
 		$insurance = $this->insurance;
@@ -78,7 +78,7 @@ class InvoiceMainPaxPaymentResource extends JsonResource
 			$totalAmount = $insurance['insurance_from_pax']['total'] ?? 0;
 			$totalPaidAmount = $insurance['insurance_from_pax']['amountPaid'] ?? 0;
 			$refund = $insurance['insurance_from_pax']['refund'] ?? 0;
-			$insuranceFromPaxPendingPayment = $insuranceFromPaxPendingPayment + $totalAmount - $totalPaidAmount -$refund;
+			$insuranceFromPaxPendingPayment = $insuranceFromPaxPendingPayment + $totalAmount - $totalPaidAmount - $refund;
 		}
 
 		$land_package = $this->land_package;
@@ -89,7 +89,7 @@ class InvoiceMainPaxPaymentResource extends JsonResource
 			$totalAmount = $land_package['landpackage_from_pax']['total'] ?? 0;
 			$totalPaidAmount = $land_package['landpackage_from_pax']['amountPaid'] ?? 0;
 			$refund = $land_package['landpackage_from_pax']['refund'] ?? 0;
-			$landPackageFromPaxPendingPayment = $landPackageFromPaxPendingPayment + $totalAmount - $totalPaidAmount -$refund;
+			$landPackageFromPaxPendingPayment = $landPackageFromPaxPendingPayment + $totalAmount - $totalPaidAmount - $refund;
 		}
 
 		$misc = $this->misc;
@@ -100,10 +100,8 @@ class InvoiceMainPaxPaymentResource extends JsonResource
 			$totalAmount = $misc['misc_from_pax']['total'] ?? 0;
 			$totalPaidAmount = $misc['misc_from_pax']['amountPaid'] ?? 0;
 			$refund = $misc['misc_from_pax']['refund'] ?? 0;
-			$miscFromPaxPendingPayment = $miscFromPaxPendingPayment + $totalAmount - $totalPaidAmount -$refund;
+			$miscFromPaxPendingPayment = $miscFromPaxPendingPayment + $totalAmount - $totalPaidAmount - $refund;
 		}
-
-			//dd($hotelFromPaxPendingPayment);
 
 		return [
 			'id'             => $this->id,
@@ -112,14 +110,14 @@ class InvoiceMainPaxPaymentResource extends JsonResource
 			// Only customer full name
 			'customer' => $this->whenLoaded('customer', function () {
 				return [
-					'full_name' => $this->customer->full_name,
+					'full_name' => optional($this->customer)->full_name ?? '',
 				];
 			}),
 			'airLine_id' => $this->airLine_id,
 			// Only airline name
 			'airLine' => $this->whenLoaded('airLine', function () {
 				return [
-					'airline_name' => $this->airLine->airline_name,
+					'airline_name' => optional($this->airLine)->airline_name ?? '',
 				];
 			}),
 			'travel_from' => $this->travel_from,
@@ -127,19 +125,19 @@ class InvoiceMainPaxPaymentResource extends JsonResource
 			// Only selected fromAirport fields
 			'fromAirport' => $this->whenLoaded('fromAirport', function () {
 				return [
-					'icao' => $this->fromAirport->icao,
-					'iata' => $this->fromAirport->iata,
-					'city' => $this->fromAirport->city,
-					'state' => $this->fromAirport->state,
+					'icao' => optional($this->fromAirport)->icao ?? '',
+					'iata' => optional($this->fromAirport)->iata ?? '',
+					'city' => optional($this->fromAirport)->city ?? '',
+					'state' => optional($this->fromAirport)->state ?? '',
 				];
 			}),
 			// Only selected toAirport fields
 			'toAirport' => $this->whenLoaded('toAirport', function () {
 				return [
-					'icao' => $this->toAirport->icao,
-					'iata' => $this->toAirport->iata,
-					'city' => $this->toAirport->city,
-					'state' => $this->toAirport->state,
+					'icao' => optional($this->toAirport)->icao ?? '',
+					'iata' => optional($this->toAirport)->iata ?? '',
+					'city' => optional($this->toAirport)->city ?? '',
+					'state' => optional($this->toAirport)->state ?? '',
 				];
 			}),
 			'hotelFromPaxPendingPayment' => $hotelFromPaxPendingPayment,
