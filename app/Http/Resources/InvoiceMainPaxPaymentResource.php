@@ -41,7 +41,7 @@ class InvoiceMainPaxPaymentResource extends JsonResource
 			$totalAmount = $airticket['airticket_from_pax']['total'] ?? null;
 			$totalPaidAmount = $airticket['airticket_from_pax']['amountPaid'] ?? null;
 			$refund = $airticket['airticket_from_pax']['refund'] ?? null;
-			$airticketFromPaxPendingPayment = $airticketFromPaxPendingPayment + $totalAmount - $totalPaidAmount - $refund;
+			$airticketFromPaxPendingPayment = $totalAmount - $totalPaidAmount - $refund;
 		}
 
 
@@ -56,7 +56,7 @@ class InvoiceMainPaxPaymentResource extends JsonResource
 
 			$totalPaidAmount = $hotel['hotel_from_pax']['amountPaid'] ?? null;
 			$refund = $hotel['hotel_from_pax']['refund'] ?? null;
-			$hotelFromPaxPendingPayment = $hotelFromPaxPendingPayment + $totalAmount - $totalPaidAmount - $refund;
+			$hotelFromPaxPendingPayment = $totalAmount - $totalPaidAmount - $refund;
 		}
 
 		// $cruise = $this->cruise;
