@@ -107,10 +107,10 @@ class InvoiceMainPaxPaymentResource extends JsonResource
 			'id'             => $this->id,
 			'invoice_number' => $this->invoice_number,
 			'customer_id'    => $this->customer_id,
-			'customer'       => new CustomerResource($this->whenLoaded('customer')),
+			//'customer'       => new CustomerResource($this->whenLoaded('customer')),
 			'airLine_id' => $this->airLine_id,
 			// Only airline name
-			'airLine' => new AirLineResource($this->whenLoaded('airLine')),
+			//'airLine' => new AirLineResource($this->whenLoaded('airLine')),
 			'travel_from' => $this->travel_from,
 			'travel_to'   => $this->travel_to,
 			//'fromAirport' => new WorldAirportResource($this->whenLoaded('fromAirport')),
