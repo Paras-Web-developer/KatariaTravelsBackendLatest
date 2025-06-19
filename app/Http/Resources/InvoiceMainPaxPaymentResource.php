@@ -108,44 +108,13 @@ class InvoiceMainPaxPaymentResource extends JsonResource
 			'invoice_number' => $this->invoice_number,
 			'customer_id'    => $this->customer_id,
 			'customer'       => new CustomerResource($this->whenLoaded('customer')),
-
-			// Only customer full name
-			// 'customer' => $this->whenLoaded('customer', function () {
-			// 	return [
-			// 		'full_name' => optional($this->customer)->full_name ?? '',
-			// 	];
-			// }),
 			'airLine_id' => $this->airLine_id,
 			// Only airline name
 			'airLine' => new AirLineResource($this->whenLoaded('airLine')),
-			// 'airLine' => $this->whenLoaded('airLine', function () {
-			// 	return [
-			// 		'airline_name' => optional($this->airLine)->airline_name ?? '',
-			// 	];
-			// }),
 			'travel_from' => $this->travel_from,
 			'travel_to'   => $this->travel_to,
-			'fromAirport' => new WorldAirportResource($this->whenLoaded('fromAirport')),
-			'toAirport' => new WorldAirportResource($this->whenLoaded('toAirport')),
-
-			// Only selected fromAirport fields
-			// 'fromAirport' => $this->whenLoaded('fromAirport', function () {
-			// 	return [
-			// 		'icao' => optional($this->fromAirport)->icao ?? '',
-			// 		'iata' => optional($this->fromAirport)->iata ?? '',
-			// 		'city' => optional($this->fromAirport)->city ?? '',
-			// 		'state' => optional($this->fromAirport)->state ?? '',
-			// 	];
-			// }),
-			// // Only selected toAirport fields
-			// 'toAirport' => $this->whenLoaded('toAirport', function () {
-			// 	return [
-			// 		'icao' => optional($this->toAirport)->icao ?? '',
-			// 		'iata' => optional($this->toAirport)->iata ?? '',
-			// 		'city' => optional($this->toAirport)->city ?? '',
-			// 		'state' => optional($this->toAirport)->state ?? '',
-			// 	];
-			// }),
+			//'fromAirport' => new WorldAirportResource($this->whenLoaded('fromAirport')),
+			//'toAirport' => new WorldAirportResource($this->whenLoaded('toAirport')),
 			'hotelFromPaxPendingPayment' => $hotelFromPaxPendingPayment,
 			'airticketFromPaxPendingPayment' => $airticketFromPaxPendingPayment,
 			'cruiseFromPaxPendingPayment' => $cruiseFromPaxPendingPayment,
