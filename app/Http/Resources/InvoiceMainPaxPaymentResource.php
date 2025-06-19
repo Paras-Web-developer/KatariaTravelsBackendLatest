@@ -38,9 +38,9 @@ class InvoiceMainPaxPaymentResource extends JsonResource
 			$airticket = json_decode($airticket, true);
 		}
 		if ($airticket && isset($airticket['airticket_from_pax'])) {
-			$totalAmount = $airticket['airticket_from_pax']['total'] ?? 0;
-			$totalPaidAmount = $airticket['airticket_from_pax']['amountPaid'] ?? 0;
-			$refund = $airticket['airticket_from_pax']['refund'] ?? 0;
+			$totalAmount = $airticket['airticket_from_pax']['total'] ?? null;
+			$totalPaidAmount = $airticket['airticket_from_pax']['amountPaid'] ?? null;
+			$refund = $airticket['airticket_from_pax']['refund'] ?? null;
 			$airticketFromPaxPendingPayment = $airticketFromPaxPendingPayment + $totalAmount - $totalPaidAmount - $refund;
 		}
 
@@ -52,10 +52,10 @@ class InvoiceMainPaxPaymentResource extends JsonResource
 		}
 		if ($hotel && isset($hotel['hotel_from_pax'])) {
 
-			$totalAmount = $hotel['hotel_from_pax']['total'] ?? 0;
+			$totalAmount = $hotel['hotel_from_pax']['total'] ?? null;
 
-			$totalPaidAmount = $hotel['hotel_from_pax']['amountPaid'] ?? 0;
-			$refund = $hotel['hotel_from_pax']['refund'] ?? 0;
+			$totalPaidAmount = $hotel['hotel_from_pax']['amountPaid'] ?? null;
+			$refund = $hotel['hotel_from_pax']['refund'] ?? null;
 			$hotelFromPaxPendingPayment = $hotelFromPaxPendingPayment + $totalAmount - $totalPaidAmount - $refund;
 		}
 
@@ -64,9 +64,9 @@ class InvoiceMainPaxPaymentResource extends JsonResource
 			$cruise = json_decode($cruise, true);
 		}
 		if ($cruise && isset($cruise['cruise_from_pax'])) {
-			$totalAmount = $cruise['cruise_from_pax']['total'] ?? 0;
-			$totalPaidAmount = $cruise['cruise_from_pax']['amountPaid'] ?? 0;
-			$refund = $cruise['cruise_from_pax']['refund'] ?? 0;
+			$totalAmount = $cruise['cruise_from_pax']['total'] ?? null;
+			$totalPaidAmount = $cruise['cruise_from_pax']['amountPaid'] ?? null;
+			$refund = $cruise['cruise_from_pax']['refund'] ?? null;
 			$cruiseFromPaxPendingPayment = $cruiseFromPaxPendingPayment + $totalAmount - $totalPaidAmount - $refund;
 		}
 
@@ -75,9 +75,9 @@ class InvoiceMainPaxPaymentResource extends JsonResource
 			$insurance = json_decode($insurance, true);
 		}
 		if ($insurance && isset($insurance['insurance_from_pax'])) {
-			$totalAmount = $insurance['insurance_from_pax']['total'] ?? 0;
-			$totalPaidAmount = $insurance['insurance_from_pax']['amountPaid'] ?? 0;
-			$refund = $insurance['insurance_from_pax']['refund'] ?? 0;
+			$totalAmount = $insurance['insurance_from_pax']['total'] ?? null;
+			$totalPaidAmount = $insurance['insurance_from_pax']['amountPaid'] ?? null;
+			$refund = $insurance['insurance_from_pax']['refund'] ?? null;
 			$insuranceFromPaxPendingPayment = $insuranceFromPaxPendingPayment + $totalAmount - $totalPaidAmount - $refund;
 		}
 
@@ -86,9 +86,9 @@ class InvoiceMainPaxPaymentResource extends JsonResource
 			$land_package = json_decode($land_package, true);
 		}
 		if ($land_package && isset($land_package['landpackage_from_pax'])) {
-			$totalAmount = $land_package['landpackage_from_pax']['total'] ?? 0;
-			$totalPaidAmount = $land_package['landpackage_from_pax']['amountPaid'] ?? 0;
-			$refund = $land_package['landpackage_from_pax']['refund'] ?? 0;
+			$totalAmount = $land_package['landpackage_from_pax']['total'] ?? null;
+			$totalPaidAmount = $land_package['landpackage_from_pax']['amountPaid'] ?? null;
+			$refund = $land_package['landpackage_from_pax']['refund'] ?? null;
 			$landPackageFromPaxPendingPayment = $landPackageFromPaxPendingPayment + $totalAmount - $totalPaidAmount - $refund;
 		}
 
@@ -97,9 +97,9 @@ class InvoiceMainPaxPaymentResource extends JsonResource
 			$misc = json_decode($misc, true);
 		}
 		if ($misc && isset($misc['misc_from_pax'])) {
-			$totalAmount = $misc['misc_from_pax']['total'] ?? 0;
-			$totalPaidAmount = $misc['misc_from_pax']['amountPaid'] ?? 0;
-			$refund = $misc['misc_from_pax']['refund'] ?? 0;
+			$totalAmount = $misc['misc_from_pax']['total'] ?? null;
+			$totalPaidAmount = $misc['misc_from_pax']['amountPaid'] ?? null;
+			$refund = $misc['misc_from_pax']['refund'] ?? null;
 			$miscFromPaxPendingPayment = $miscFromPaxPendingPayment + $totalAmount - $totalPaidAmount - $refund;
 		}
 
