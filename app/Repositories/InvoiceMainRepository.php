@@ -225,23 +225,23 @@ class InvoiceMainRepository extends AppRepository
 		}
 		
 
-		if ($request->has('supplier_transation_type_id') && isset($request->supplier_transation_type_id)) {
-			$transationTypeId = $request->supplier_transation_type_id;
+		// if ($request->has('supplier_transation_type_id') && isset($request->supplier_transation_type_id)) {
+		// 	$transationTypeId = $request->supplier_transation_type_id;
 
-			$model->where(function ($query) use ($transationTypeId) {
-				$query->orWhere('airticket->airticket_to_supplier->transation_type_id', $transationTypeId)
+		// 	$model->where(function ($query) use ($transationTypeId) {
+		// 		$query->orWhere('airticket->airticket_to_supplier->transation_type_id', $transationTypeId)
 
-					->orWhere('hotel->hotel_to_supplier->transation_type_id', $transationTypeId)
+		// 			->orWhere('hotel->hotel_to_supplier->transation_type_id', $transationTypeId)
 
-					->orWhere('cruise->cruise_to_supplier->transation_type_id', $transationTypeId)
+		// 			->orWhere('cruise->cruise_to_supplier->transation_type_id', $transationTypeId)
 
-					->orWhere('insurance->insurance_to_supplier->transation_type_id', $transationTypeId)
+		// 			->orWhere('insurance->insurance_to_supplier->transation_type_id', $transationTypeId)
 
-					->orWhere('land_package->landpackage_to_supplier->transation_type_id', $transationTypeId)
+		// 			->orWhere('land_package->landpackage_to_supplier->transation_type_id', $transationTypeId)
 
-					->orWhere('misc->misc_to_supplier->transation_type_id', $transationTypeId);
-			});
-		}
+		// 			->orWhere('misc->misc_to_supplier->transation_type_id', $transationTypeId);
+		// 	});
+		// }
 
 		return $model;
 	}
