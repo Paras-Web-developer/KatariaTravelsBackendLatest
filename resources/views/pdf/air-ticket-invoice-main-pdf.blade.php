@@ -28,7 +28,7 @@
                                         <div><strong>Invoice No:</strong> {{ $invoiceMain->invoice_number }}</div>
                                         <div><strong>Invoice Date:</strong>
                                             {{ $invoiceMain->created_at->format('Y-m-d') }}</div>
-                                        <div><strong>Client No:</strong> {{ $invoiceMain->customer_phone_number ?? '' }}</div>
+                                        <div><strong>Client No:</strong> {{ $invoiceMain->customer_details['phone_number'] ?? '' }}</div>
                                         <div><strong>GDS:</strong> {{ $invoiceMain->gds_type ?? '' }}&nbsp;
                                             <strong>PNR:</strong> {{ $invoiceMain->ticket_number ?? '' }}
                                         </div>
