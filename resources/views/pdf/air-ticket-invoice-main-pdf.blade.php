@@ -224,7 +224,7 @@
                                 <tr style="">
                                     <td style="padding:2px;border:1px solid #ccc;">Payment Method</td>
                                     <td colspan="4" style="padding:2px;border:1px solid #ccc;text-align:right;">
-                                         {{ $invoiceMain->airticket && $invoiceMain->airticket['airticket_from_pax'] && isset($invoiceMain->airticket['airticket_from_pax']['transation_type_name']) ? $invoiceMain->airticket['airticket_from_pax']['transation_type_name'] : '' }}
+                                         {{ $invoiceMain->airticket && $invoiceMain->airticket['airticket_from_pax'] && isset($invoiceMain->airticket['airticket_from_pax']['transaction_type_name']) ? $invoiceMain->airticket['airticket_from_pax']['transaction_type_name'] : '' }}
                                     </td>
                                 </tr>
                                 <!-- inside the data you will see airticket object inside that their is airticket_from_pax inside that are is total Amount-->
