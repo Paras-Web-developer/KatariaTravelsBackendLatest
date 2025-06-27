@@ -28,7 +28,7 @@
                                         <div><strong>Invoice No:</strong> {{ $invoiceMain->invoice_number }}</div>
                                         <div><strong>Invoice Date:</strong>
                                             {{ $invoiceMain->created_at->format('Y-m-d') }}</div>
-                                        <div><strong>Client No:</strong> {{ $invoiceMain->customer_id ?? '' }}</div>
+                                        <div><strong>Client No:</strong> {{ $invoiceMain->customer_details['phone_number'] ?? '' }}</div>
                                         <div><strong>GDS:</strong> {{ $invoiceMain->gds_type ?? '' }}&nbsp;
                                             <strong>PNR:</strong> {{ $invoiceMain->ticket_number ?? '' }}
                                         </div>
@@ -221,11 +221,12 @@
                                         {{ $invoiceMain->airticket && $invoiceMain->airticket['airticket_from_pax'] && isset($invoiceMain->airticket['airticket_from_pax']['balance']) ? $invoiceMain->airticket['airticket_from_pax']['balance'] : '' }}
                                     </td>
                                 </tr>
-                                <tr style="">
-                                    <td style="padding:2px;border:1px solid #ccc;">Payment Method</td>
+                                <!-- <tr style="">
+                                    <td style="padding:2px;border:1px solid #ccc;">Payment Method</td> Now working fix that
                                     <td colspan="4" style="padding:2px;border:1px solid #ccc;text-align:right;">
+                                         {{ $invoiceMain->airticket && $invoiceMain->airticket['airticket_from_pax'] && isset($invoiceMain->airticket['airticket_from_pax']['transaction_type_name']) ? $invoiceMain->airticket['airticket_from_pax']['transaction_type_name'] : '' }}
                                     </td>
-                                </tr>
+                                </tr> -->
                                 <!-- inside the data you will see airticket object inside that their is airticket_from_pax inside that are is total Amount-->
                                 <tr style="background:#f2f2f2;">
                                     <th style="padding:2px;border:1px solid #ccc;text-align:right;">Total Amount:</th>
