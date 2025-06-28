@@ -263,6 +263,27 @@ class InvoiceMainController extends BaseController
 				: 'KTT-001';
 			$request->merge(['invoice_number' => $newInvoiceNumber, 'created_by_user_id' => $user_id]);
 			$response = $this->invoiceMainRepo->update($request->id, $request);
+
+			//child record create
+			$request->merge(['updated_by_user_id' => $user_id]);
+			//$response = $this->invoiceMainRepo->update($request->id, $request);
+			$lastInvoice = \App\Models\InvoiceMain::latest('id')->where('parent_id', null)->first();
+			$newInvoiceNumber = $lastInvoice
+				? 'KTT-' . str_pad(((int) str_replace('KTT-', '', $lastInvoice->invoice_number)) + 1, 3, '0', STR_PAD_LEFT)
+				: 'KTT-001';
+
+			// Generate history pattern: KTT-001-H1, KTT-001-H2, etc.
+			$parentInvoice = \App\Models\InvoiceMain::find($response->id);
+			$childCount = \App\Models\InvoiceMain::where('parent_id', $response->id)->count();
+			$historyPattern = $parentInvoice->invoice_number . '-H' . ($childCount + 1);
+
+			$request->merge([
+				'invoice_number' => $historyPattern,
+				'parent_id' => $response->id,
+				'updated_by_user_id' => $user_id,
+			]);
+
+			$fistChildResponse = $this->invoiceMainRepo->store($request);
 		} else {
 			$request->merge(['updated_by_user_id' => $user_id]);
 			$response = $this->invoiceMainRepo->update($request->id, $request);
