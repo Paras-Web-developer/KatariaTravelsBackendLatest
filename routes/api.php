@@ -51,7 +51,7 @@ Route::middleware(['auth:sanctum'])->get('/user', function (Request $request) {
 
 
 Route::post('login', [UserController::class, 'login']);
-Route::post('register', [UserController::class, 'register']);
+// Route::post('register', [UserController::class, 'register']);
 Route::post('forgot-password', [UserController::class, 'forgotPassword']);
 
 Route::get('countries', [CountryController::class, 'countryList']);
@@ -59,6 +59,9 @@ Route::get('states/{countryId}', [CountryController::class, 'stateList']);
 Route::get('cities/{countryId}/{stateId}', [CountryController::class, 'cityList']);
 
 Route::middleware('auth:sanctum')->group(function () {
+
+	Route::post('register', [UserController::class, 'register']);
+
 	Route::post('/send-whatsapp-message', [WhatsAppController::class, 'sendMessage']);
 	Route::prefix('user')->group(function () {
 		Route::get('user-list', [UserController::class, 'userList']);

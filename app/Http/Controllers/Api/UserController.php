@@ -13,6 +13,7 @@ use Illuminate\Validation\Rules\Password;
 use Illuminate\Validation\Rule;
 use App\Models\User;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Auth;
 
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\URL;
@@ -120,6 +121,15 @@ class UserController extends BaseController
 
 	public function register(Request $request)
 	{
+		$authUser = Auth::user();
+
+		if (!in_array($authUser->role_id, [1, 4])) {
+			return response()->json([
+				'status' => false,
+				'message' => 'Unauthorized: Only Admin or Super Admin can register users.',
+			], 403);
+		}
+		
 		$request->validate([
 			'name' => ['required', 'string', 'max:255'],
 			'role_id' => 'required|integer|exists:roles,id',
@@ -132,6 +142,7 @@ class UserController extends BaseController
 			'employee_verified_at' => 'nullable|date',
 			'user_login' => 'nullable|boolean|in:0,1',
 		]);
+
 
 		$newRequest = new Request($request->except('image'));
 
