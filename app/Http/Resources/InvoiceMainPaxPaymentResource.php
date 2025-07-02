@@ -21,6 +21,8 @@ class InvoiceMainPaxPaymentResource extends JsonResource
             'fromAirport'    => new WorldAirportResource($this->whenLoaded('fromAirport')),
             'toAirport'      => new WorldAirportResource($this->whenLoaded('toAirport')),
 
+            //'airticket_from_pax'          => $this->getAirticketFromPax(),
+            'balance'                     => $this->getAirticketFromPaxBalance(),
             'hotelFromPaxPendingPayment'       => $this->calculatePending('hotel', 'hotel_from_pax'),
             'airticketFromPaxPendingPayment'   => $this->calculatePending('airticket', 'airticket_from_pax'),
             'cruiseFromPaxPendingPayment'      => $this->calculatePending('cruise', 'cruise_from_pax'),
@@ -57,4 +59,25 @@ class InvoiceMainPaxPaymentResource extends JsonResource
             return 0;
         }
     }
+
+    private function getAirticketFromPaxBalance(): float
+    {
+        try {
+            $data = $this->airticket;
+
+            if (is_string($data)) {
+                $data = json_decode($data, true);
+            }
+
+            if (!is_array($data) || !isset($data['airticket_from_pax']['balance'])) {
+                return 0.0;
+            }
+
+            return round(floatval($data['airticket_from_pax']['balance']), 2);
+        } catch (\Throwable $e) {
+            \Log::error("Error extracting balance from airticket_from_pax: " . $e->getMessage(), ['id' => $this->id]);
+            return 0.0;
+        }
+    }
+
 }
