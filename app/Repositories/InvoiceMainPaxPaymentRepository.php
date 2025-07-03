@@ -194,12 +194,22 @@ class InvoiceMainPaxPaymentRepository extends AppRepository
 		// 	});
 		// }
 
+		 // Filter by balance_status_pax
+			if ($request->filled('balance_status_pax')) {
+				$balanceStatus = (int) $request->balance_status_pax;
+				$operator = $balanceStatus === 0 ? '=' : ($balanceStatus === 1 ? '>' : '<');
+
+				$model->whereRaw('
+					CAST(COALESCE(NULLIF(JSON_UNQUOTE(JSON_EXTRACT(airticket, "$.airticket_from_pax.balance")), ""), "0") AS DECIMAL(10,2))
+					' . $operator . ' 0
+				');
+			}
 		// Filter by balance in airticket_from_pax
-		if ($request->has('balance_status')) {
-			$balanceStatus = (int) $request->balance_status;
+		if ($request->has('balance_status_supplier')) {
+			$balanceStatus = (int) $request->balance_status_supplier;
 
 			$model->whereRaw('
-				CAST(COALESCE(NULLIF(JSON_UNQUOTE(JSON_EXTRACT(airticket, "$.airticket_from_pax.balance")), ""), "0") AS DECIMAL(10,2))
+				CAST(COALESCE(NULLIF(JSON_UNQUOTE(JSON_EXTRACT(airticket, "$.airticket_to_supplier.balance")), ""), "0") AS DECIMAL(10,2))
 				' . ($balanceStatus === 0 ? '= 0' : ($balanceStatus === 1 ? '> 0' : '< 0'))
 			);
 		}
