@@ -194,6 +194,15 @@ class InvoiceMainPaxPaymentRepository extends AppRepository
 		// 	});
 		// }
 
+		// Filter by balance in airticket_from_pax
+		if ($request->has('balance_status')) {
+			$balanceStatus = (int) $request->balance_status;
+
+			$model->whereRaw('
+				CAST(COALESCE(NULLIF(JSON_UNQUOTE(JSON_EXTRACT(airticket, "$.airticket_from_pax.balance")), ""), "0") AS DECIMAL(10,2))
+				' . ($balanceStatus === 0 ? '= 0' : ($balanceStatus === 1 ? '> 0' : '< 0'))
+			);
+		}
 
 		// Filter by pending payment status
 		if ($request->has('pending_payment_status')) {
