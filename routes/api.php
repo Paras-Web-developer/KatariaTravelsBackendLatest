@@ -306,3 +306,5 @@ Route::prefix('world-airports')->group(function () {
 
 Route::post('/send-whatsapp', [TwilioController::class, 'sendMessage']);
 // Route::get('send-invoice-mail/{id}/{type}', [InvoiceMainController::class, 'sendInvoiceMail'])->whereIn('type', ['airticket', 'insurance', 'hotel']);
+
+require __DIR__ . '/whatsapp-api.php';
