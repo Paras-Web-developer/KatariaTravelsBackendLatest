@@ -37,6 +37,7 @@ class User extends Authenticatable
         'password',
         'status',
         'user_login',
+        'last_seen_at',
     ];
 
     public function role(): BelongsTo

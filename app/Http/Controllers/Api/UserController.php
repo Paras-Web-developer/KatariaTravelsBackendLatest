@@ -72,7 +72,7 @@ class UserController extends BaseController
 
 		// Step 4: Update login flag
 		try {
-			$user->update(['user_login' => 1]);
+			$user->update(['user_login' => 1 , 'last_seen_at' => now()]);
 		} catch (\Exception $e) {
 			\Log::error('Login update failed: ' . $e->getMessage());
 		}
@@ -282,6 +282,7 @@ class UserController extends BaseController
 		}
 
 		try {
+			
 			$user->update(['user_login' => 0]);
 			$this->userRepo->logoutCurrentSession($request);
 

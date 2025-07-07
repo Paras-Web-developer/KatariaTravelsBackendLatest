@@ -245,6 +245,7 @@ class UserResource extends JsonResource
             'department' => new DepartmentResource(($this->whenLoaded('department'))),
             // 'enquiries' => EnquiryResource::collection($this->whenLoaded('enquiries')),
             'user_login' => $this->user_login,
+            'last_seen_at' => $this->last_seen_at,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
         ];
