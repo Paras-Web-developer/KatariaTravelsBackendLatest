@@ -28,23 +28,54 @@ class UserController extends BaseController
 	{
 		$this->userRepo = $userRepo;
 	}
+	// public function login(LoginRequest $request)
+	// {
+	// 	$request->authenticate();
+	// 	$user = auth()->user();
+
+	// 	if (is_null($user->employee_verified_at) && $user->status !== 'active') {
+	// 		return response()->json([
+	// 			'message' => 'Your account is not verified or is inactive. Please contact the administrator.',
+	// 		], 403);
+	// 	}
+
+
+	// 	$response = $this->userRepo->login($request);
+	// 	$user_id = $response->id;
+	// 	$user = User::find($user_id);
+	// 	// $userUpdate = $user->update(['user_login' => $request->user_login]);
+	// 	$user->update(['user_login' => 1]);
+
+	// 	return $this->successWithData(new LoginUserResource($response), 'Login successfully');
+	// }
+
 	public function login(LoginRequest $request)
 	{
+		// Step 1: Attempt authentication via custom request
 		$request->authenticate();
 		$user = auth()->user();
-
-		if (is_null($user->employee_verified_at) && $user->status !== 'active') {
+		// Step 2: Validate account status
+		if (is_null($user->employee_verified_at) || $user->status !== 'active') {
 			return response()->json([
 				'message' => 'Your account is not verified or is inactive. Please contact the administrator.',
 			], 403);
 		}
 
-
-		$response = $this->userRepo->login($request);
+		// Step 3: Proceed with login logic
+		$response = $this->userRepo->login($request); // custom logic, assuming returns User model
 		$user_id = $response->id;
 		$user = User::find($user_id);
-		// $userUpdate = $user->update(['user_login' => $request->user_login]);
-		$user->update(['user_login' => $request->user_login]);
+
+		if (!$user) {
+			return response()->json(['message' => 'User not found after login.'], 404);
+		}
+
+		// Step 4: Update login flag
+		try {
+			$user->update(['user_login' => 1]);
+		} catch (\Exception $e) {
+			\Log::error('Login update failed: ' . $e->getMessage());
+		}
 
 		return $this->successWithData(new LoginUserResource($response), 'Login successfully');
 	}
@@ -129,7 +160,7 @@ class UserController extends BaseController
 				'message' => 'Unauthorized: Only Admin or Super Admin can register users.',
 			], 403);
 		}
-		
+
 		$request->validate([
 			'name' => ['required', 'string', 'max:255'],
 			'role_id' => 'required|integer|exists:roles,id',
@@ -240,10 +271,25 @@ class UserController extends BaseController
 
 	public function logout(Request $request)
 	{
+		// $user = auth()->user();
+		// $user->update(['user_login' => 0]);
+		// $this->userRepo->logoutCurrentSession($request);
+		// return $this->success("Successfully logout");
 		$user = auth()->user();
-		$user->update(['user_login' => 0]);
-		$this->userRepo->logoutCurrentSession($request);
-		return $this->success("Successfully logout");
+		if (!$user) {
+			\Log::warning('Logout failed: No authenticated user');
+			return response()->json(['message' => 'Logout failed. User not authenticated.'], 401);
+		}
+
+		try {
+			$user->update(['user_login' => 0]);
+			$this->userRepo->logoutCurrentSession($request);
+
+			return response()->json(['message' => 'Successfully logged out']);
+		} catch (\Exception $e) {
+			\Log::error('Logout failed: ' . $e->getMessage());
+			return response()->json(['message' => 'Logout failed.'], 500);
+		}
 	}
 
 
