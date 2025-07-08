@@ -28,6 +28,22 @@ class UserController extends BaseController
 	{
 		$this->userRepo = $userRepo;
 	}
+
+	public function listSessions(Request $request)
+	{
+		return response()->json(
+			$request->user()->tokens->map(function ($token) {
+				return [
+					'device' => $token->name,
+					'last_seen_at' => $token->last_seen_at,
+					'created_at' => $token->created_at,
+					'is_current' => $token->id === $request->user()->currentAccessToken()->id,
+				];
+			})
+		);
+	}
+
+
 	// public function login(LoginRequest $request)
 	// {
 	// 	$request->authenticate();
@@ -48,6 +64,7 @@ class UserController extends BaseController
 
 	// 	return $this->successWithData(new LoginUserResource($response), 'Login successfully');
 	// }
+
 
 	public function login(LoginRequest $request)
 	{
@@ -70,14 +87,23 @@ class UserController extends BaseController
 			return response()->json(['message' => 'User not found after login.'], 404);
 		}
 
+		// Create personal access token
+		$token = $user->createToken($request->header('User-Agent') ?? 'Unknown Device');
+
+
 		// Step 4: Update login flag
 		try {
-			$user->update(['user_login' => 1 , 'last_seen_at' => now()]);
+			$user->update(['user_login' => 1, 'last_seen_at' => now()]);
 		} catch (\Exception $e) {
 			\Log::error('Login update failed: ' . $e->getMessage());
 		}
 
-		return $this->successWithData(new LoginUserResource($response), 'Login successfully');
+		// return $this->successWithData(new LoginUserResource($response), 'Login successfully');
+		return response()->json([
+			'token' => $token->plainTextToken,
+			'user' => new LoginUserResource($user),
+			'message' => 'Login successful',
+		]);
 	}
 	public function userList(Request $request)
 	{
@@ -94,7 +120,7 @@ class UserController extends BaseController
 		//         $query->whereNull('parent_id');
 		//     }, 'department', 'branch'])
 		//     ->paginate($limit);
-		$response = $this->userRepo->filter()->with('department', 'branch')->paginate($limit);
+		$response = $this->userRepo->filter()->with('department', 'branch','tokens')->paginate($limit);
 
 		return $this->successWithPaginateData(UserResource::collection($response), $response);
 	}
@@ -111,7 +137,7 @@ class UserController extends BaseController
 		$limit = $request->has('limit') ? $request->limit : 1000;
 		$response = $this->userRepo->filter()
 			->whereIn('role_id', $validRoleIds)
-			->with('enquiries', 'department', 'branch')  // Include related data
+			->with('enquiries', 'department', 'branch' ,'tokens')  // Include related data
 			->paginate($limit);
 		return $this->successWithPaginateData(UserResource::collection($response), $response);
 	}
@@ -282,9 +308,11 @@ class UserController extends BaseController
 		}
 
 		try {
-			
+
 			$user->update(['user_login' => 0]);
 			$this->userRepo->logoutCurrentSession($request);
+			$request->user()->currentAccessToken()->delete(); // Logs out only current device/token
+
 
 			return response()->json(['message' => 'Successfully logged out']);
 		} catch (\Exception $e) {

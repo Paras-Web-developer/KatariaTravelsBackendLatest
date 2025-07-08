@@ -35,6 +35,8 @@ class Kernel extends ConsoleKernel
         // Existing job
         $schedule->job(new \App\Jobs\AutoLogoutInactiveUsers)->everyFiveMinutes();
         $schedule->job(new \App\Jobs\SendFollowupRemindersJob)->everyFiveMinutes();
+         $schedule->job(new \App\Jobs\AutoLogoutInactiveTokens)->everyFiveMinutes();
+
     }
 
 
