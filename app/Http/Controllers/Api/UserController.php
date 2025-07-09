@@ -90,7 +90,6 @@ class UserController extends BaseController
 		// Create personal access token
 		$token = $user->createToken($request->header('User-Agent') ?? 'Unknown Device');
 
-
 		// Step 4: Update login flag
 		try {
 			$user->update(['user_login' => 1, 'last_seen_at' => now()]);
@@ -98,12 +97,12 @@ class UserController extends BaseController
 			\Log::error('Login update failed: ' . $e->getMessage());
 		}
 
-		// return $this->successWithData(new LoginUserResource($response), 'Login successfully');
-		return response()->json([
-			'token' => $token->plainTextToken,
-			'user' => new LoginUserResource($user),
-			'message' => 'Login successful',
-		]);
+		return $this->successWithData(new LoginUserResource($response), 'Login successfully');
+		// return response()->json([
+		// 	'token' => $token->plainTextToken,
+		// 	'user' => new LoginUserResource($user),
+		// 	'message' => 'Login successful',
+		// ]);
 	}
 	public function userList(Request $request)
 	{
