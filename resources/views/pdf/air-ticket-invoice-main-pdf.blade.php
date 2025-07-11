@@ -175,7 +175,9 @@
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td style="padding:2px;border:1px solid #ccc;">Child</td>
+                                    <td style="padding:2px;border:1px solid #ccc;">Child:
+                                        {{ $invoiceMain->airticket && $invoiceMain->airticket['passengers'] && isset($invoiceMain->airticket['passengers']['chd']) ? $invoiceMain->airticket['passengers']['chd'] : '' }}
+                                    </td>
 
                                     {{-- Base Fare --}}
                                     <td style="padding:2px;border:1px solid #ccc;text-align:right;">
@@ -207,7 +209,9 @@
                                 </tr>
 
                                 <tr>
-                                    <td style="padding:2px;border:1px solid #ccc;">Infant</td>
+                                    <td style="padding:2px;border:1px solid #ccc;">Infant:
+                                        {{ $invoiceMain->airticket && $invoiceMain->airticket['passengers'] && isset($invoiceMain->airticket['passengers']['inf']) ? $invoiceMain->airticket['passengers']['inf'] : '' }}
+                                    </td>
 
                                     {{-- Base Fare --}}
                                     <td style="padding:2px;border:1px solid #ccc;text-align:right;">
