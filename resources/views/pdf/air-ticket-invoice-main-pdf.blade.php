@@ -160,7 +160,10 @@
                                         {{ $invoiceMain->airticket && $invoiceMain->airticket['airticket_from_pax'] && isset($invoiceMain->airticket['airticket_from_pax']['baseFare']) && isset($invoiceMain->airticket['airticket_from_pax']['baseFare']['adt1']) ? $invoiceMain->airticket['airticket_from_pax']['baseFare']['adt1'] : '' }}
                                     </td>
                                     <td style="padding:2px;border:1px solid #ccc;text-align:right;">
-                                        {{ $invoiceMain->airticket && $invoiceMain->airticket['airticket_from_pax'] && isset($invoiceMain->airticket['airticket_from_pax']['gstHst']) && isset($invoiceMain->airticket['airticket_from_pax']['gstHst']['adt1']) ? $invoiceMain->airticket['airticket_from_pax']['gstHst']['adt1'] : '' }}
+                                        {{ isset($invoiceMain->airticket['airticket_from_pax']['gstHst']['adt1']) &&
+                                        is_numeric($invoiceMain->airticket['airticket_from_pax']['gstHst']['adt1'])
+                                            ? $invoiceMain->airticket['airticket_from_pax']['gstHst']['adt1']
+                                            : 0 }}
                                     </td>
                                     <td style="padding:2px;border:1px solid #ccc;text-align:right;">
                                         {{ $invoiceMain->airticket && $invoiceMain->airticket['airticket_from_pax'] && isset($invoiceMain->airticket['airticket_from_pax']['taxes']) && isset($invoiceMain->airticket['airticket_from_pax']['taxes']['adt1']) ? $invoiceMain->airticket['airticket_from_pax']['taxes']['adt1'] : '' }}
