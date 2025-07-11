@@ -268,13 +268,6 @@
                                         {{ $invoiceMain->airticket && $invoiceMain->airticket['airticket_from_pax'] && isset($invoiceMain->airticket['airticket_from_pax']['balance']) ? $invoiceMain->airticket['airticket_from_pax']['balance'] : '' }}
                                     </td>
                                 </tr>
-                                <tr style="">
-                                    <td colspan="2" style="border:none;"></td>
-                                    <td style="padding:2px;border:1px solid #ccc;"><strong>Payment Method:</strong>
-                                    </td>
-                                    <td colspan="2" style="padding:2px;border:1px solid #ccc;text-align:right;">
-                                    </td>
-                                </tr>
                             </table>
                         </td>
                     </tr>
