@@ -48,6 +48,14 @@ class InvoiceMainResource extends JsonResource
 			$landPackage['country_name'] = $landCountryName;
 		}
 
+		$landPackageSupplierId = $landPackage['land_package_supplier_id'] ?? null;
+		$landPackageSupplierName = null;
+		if ($landPackageSupplierId) {
+			$landPackageSupplier = Supplier::find($landPackageSupplierId);
+			$landPackageSupplierName = $landPackageSupplier ? $landPackageSupplier->name : null;
+		}
+		$landPackage['land_package_supplier_name'] = $landPackageSupplierName;
+
 		// Process transaction type on land_package "pax" and "supplier" parts.
 		if (isset($landPackage['landpackage_from_pax'])) {
 			$addTransactionTypeName($landPackage['landpackage_from_pax']);
@@ -102,6 +110,7 @@ class InvoiceMainResource extends JsonResource
 		if (isset($airticket['airticket_to_supplier'])) {
 			$addTransactionTypeName($airticket['airticket_to_supplier']);
 		}
+		
 
 		// ---------------------------
 		// Process the insurance field
@@ -116,6 +125,14 @@ class InvoiceMainResource extends JsonResource
 		if ($insurance && isset($insurance['insurance_to_supplier'])) {
 			$addTransactionTypeName($insurance['insurance_to_supplier']);
 		}
+
+		$insuranceSupplierId = $insurance['insurance_supplier_id'] ?? null;
+		$insuranceSupplierName = null;
+		if ($insuranceSupplierId) {
+			$insuranceSupplier = Supplier::find($insuranceSupplierId);
+			$insuranceSupplierName = $insuranceSupplier ? $insuranceSupplier->name : null;
+		}
+		$insurance['insurance_supplier_name'] = $insuranceSupplierName;
 
 		// ---------------------------
 		// Process the cruise field
@@ -140,6 +157,14 @@ class InvoiceMainResource extends JsonResource
 			$cruise['country_name'] = $cruiseCountryName;
 		}
 
+		$cruiseSupplierId = $cruise['cruise_supplier_id'] ?? null;
+		$cruiseSupplierName = null;
+		if ($cruiseSupplierId) {
+			$cruiseSupplier = Supplier::find($cruiseSupplierId);
+			$cruiseSupplierName = $cruiseSupplier ? $cruiseSupplier->name : null;
+		}
+		$cruise['cruise_supplier_name'] = $cruiseSupplierName;
+
 		// ---------------------------
 		// Process the hotel field
 		// ---------------------------
@@ -161,6 +186,14 @@ class InvoiceMainResource extends JsonResource
 			$hotelCountryName = $countryRec ? $countryRec->name : null;
 			$hotel['country_name'] = $hotelCountryName;
 		}
+
+		$hotelSupplierId = $hotel['hotel_supplier_id'] ?? null;
+		$hotelSupplierName = null;
+		if ($hotelSupplierId) {
+			$hotelSupplier = Supplier::find($hotelSupplierId);
+			$hotelSupplierName = $hotelSupplier ? $hotelSupplier->name : null;
+		}
+		$hotel['hotel_supplier_name'] = $hotelSupplierName;
 
 		// ---------------------------
 		// Process the misc field

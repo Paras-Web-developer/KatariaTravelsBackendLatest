@@ -224,17 +224,17 @@ class UserResource extends JsonResource
                 'hotelStatics' => $hotelStatics,
                 'user_login' => $this->user_login,
                 'last_seen_at' => $this->last_seen_at,
-                'sessions' => $this->whenLoaded('tokens', function () use ($request) {
-                    return $this->tokens->map(function ($token) use ($request) {
-                        return [
-                            'device' => $token->name,
-                            'last_seen_at' => $token->last_seen_at,
-                            'created_at' => $token->created_at,
-                            'token' => $token->token,
-                            'is_current' => $request->user()?->currentAccessToken()?->id === $token->id,
-                        ];
-                    });
-                }),
+                // 'sessions' => $this->whenLoaded('tokens', function () use ($request) {
+                //     return $this->tokens->map(function ($token) use ($request) {
+                //         return [
+                //             'device' => $token->name,
+                //             'last_seen_at' => $token->last_seen_at,
+                //             'created_at' => $token->created_at,
+                //             'token' => $token->token,
+                //             'is_current' => $request->user()?->currentAccessToken()?->id === $token->id,
+                //         ];
+                //     });
+                // }),
                 'created_at' => $this->created_at,
                 'updated_at' => $this->updated_at,
             ];
