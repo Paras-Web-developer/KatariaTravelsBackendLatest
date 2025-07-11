@@ -28,7 +28,8 @@
                                         <div><strong>Invoice No:</strong> {{ $invoiceMain->invoice_number }}</div>
                                         <div><strong>Invoice Date:</strong>
                                             {{ $invoiceMain->created_at->format('Y-m-d') }}</div>
-                                        <div><strong>Client No:</strong> {{ $invoiceMain->customer_details['phone_number'] ?? '' }}</div>
+                                        <div><strong>Client No:</strong>
+                                            {{ $invoiceMain->customer_details['phone_number'] ?? '' }}</div>
                                         <div><strong>GDS:</strong> {{ $invoiceMain->gds_type ?? '' }}&nbsp;
                                             <strong>PNR:</strong> {{ $invoiceMain->ticket_number ?? '' }}
                                         </div>
@@ -239,6 +240,21 @@
                                     <td style="padding:2px;border:1px solid #ccc;"><strong>Amount Paid:</strong></td>
                                     <td colspan="2" style="padding:2px;border:1px solid #ccc;text-align:right;">
                                         {{ $invoiceMain->airticket && $invoiceMain->airticket['airticket_from_pax'] && isset($invoiceMain->airticket['airticket_from_pax']['amountPaid']) ? $invoiceMain->airticket['airticket_from_pax']['amountPaid'] : '' }}
+                                    </td>
+                                </tr>
+                                <tr style="">
+                                    <td colspan="2" style="border:none;"></td>
+                                    <td style="padding:2px;border:1px solid #ccc;"><strong>Refund:</strong></td>
+                                    <td colspan="2" style="padding:2px;border:1px solid #ccc;text-align:right;">
+                                        {{ $invoiceMain->airticket && $invoiceMain->airticket['airticket_from_pax'] && isset($invoiceMain->airticket['airticket_from_pax']['refund']) ? $invoiceMain->airticket['airticket_from_pax']['refund'] : '' }}
+                                    </td>
+                                </tr>
+                                <tr style="">
+                                    <td colspan="2" style="border:none;"></td>
+                                    <td style="padding:2px;border:1px solid #ccc;"><strong>Refund Paid to
+                                            client:</strong></td>
+                                    <td colspan="2" style="padding:2px;border:1px solid #ccc;text-align:right;">
+                                        {{ $invoiceMain->airticket && $invoiceMain->airticket['airticket_from_pax'] && isset($invoiceMain->airticket['airticket_from_pax']['refund_paid']) ? $invoiceMain->airticket['airticket_from_pax']['refund_paid'] : '' }}
                                     </td>
                                 </tr>
                                 <tr style="">
