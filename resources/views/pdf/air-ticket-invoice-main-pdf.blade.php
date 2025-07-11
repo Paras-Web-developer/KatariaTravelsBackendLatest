@@ -155,7 +155,9 @@
                                     <th style="padding:2px;border:1px solid #ccc;text-align:right;">Total</th>
                                 </tr>
                                 <tr style="">
-                                    <td style="padding:2px;border:1px solid #ccc;">Adult</td>
+                                    <td style="padding:2px;border:1px solid #ccc;">Adult:
+                                        {{ $invoiceMain->airticket && $invoiceMain->airticket['passengers'] && isset($invoiceMain->airticket['passengers']['adt']) ? $invoiceMain->airticket['passengers']['adt'] : '' }}
+                                    </td>
                                     <td style="padding:2px;border:1px solid #ccc;text-align:right;">
                                         {{ $invoiceMain->airticket && $invoiceMain->airticket['airticket_from_pax'] && isset($invoiceMain->airticket['airticket_from_pax']['baseFare']) && isset($invoiceMain->airticket['airticket_from_pax']['baseFare']['adt1']) ? $invoiceMain->airticket['airticket_from_pax']['baseFare']['adt1'] : '' }}
                                     </td>
