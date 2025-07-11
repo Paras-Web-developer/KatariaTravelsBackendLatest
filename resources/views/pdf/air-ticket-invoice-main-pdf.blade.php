@@ -172,34 +172,67 @@
                                         {{ $invoiceMain->airticket && $invoiceMain->airticket['airticket_from_pax'] && isset($invoiceMain->airticket['airticket_from_pax']['subTotal']) && isset($invoiceMain->airticket['airticket_from_pax']['subTotal']['adt1']) ? $invoiceMain->airticket['airticket_from_pax']['subTotal']['adt1'] : '' }}
                                     </td>
                                 </tr>
-                                <tr style="">
+                                <tr>
                                     <td style="padding:2px;border:1px solid #ccc;">Child</td>
+
+                                    {{-- Base Fare --}}
                                     <td style="padding:2px;border:1px solid #ccc;text-align:right;">
-                                        {{ $invoiceMain->airticket && $invoiceMain->airticket['airticket_from_pax'] && isset($invoiceMain->airticket['airticket_from_pax']['baseFare']) && isset($invoiceMain->airticket['airticket_from_pax']['baseFare']['chd1']) ? $invoiceMain->airticket['airticket_from_pax']['baseFare']['chd1'] : '' }}
+                                        {{ is_numeric($invoiceMain->airticket['airticket_from_pax']['baseFare']['chd1'] ?? null)
+                                            ? $invoiceMain->airticket['airticket_from_pax']['baseFare']['chd1']
+                                            : 0 }}
                                     </td>
+
+                                    {{-- GST/HST --}}
                                     <td style="padding:2px;border:1px solid #ccc;text-align:right;">
-                                        {{ $invoiceMain->airticket && $invoiceMain->airticket['airticket_from_pax'] && isset($invoiceMain->airticket['airticket_from_pax']['gstHst']) && isset($invoiceMain->airticket['airticket_from_pax']['gstHst']['chd1']) ? $invoiceMain->airticket['airticket_from_pax']['gstHst']['chd1'] : '' }}
+                                        {{ is_numeric($invoiceMain->airticket['airticket_from_pax']['gstHst']['chd1'] ?? null)
+                                            ? $invoiceMain->airticket['airticket_from_pax']['gstHst']['chd1']
+                                            : 0 }}
                                     </td>
+
+                                    {{-- Taxes --}}
                                     <td style="padding:2px;border:1px solid #ccc;text-align:right;">
-                                        {{ $invoiceMain->airticket && $invoiceMain->airticket['airticket_from_pax'] && isset($invoiceMain->airticket['airticket_from_pax']['taxes']) && isset($invoiceMain->airticket['airticket_from_pax']['taxes']['chd1']) ? $invoiceMain->airticket['airticket_from_pax']['taxes']['chd1'] : '' }}
+                                        {{ is_numeric($invoiceMain->airticket['airticket_from_pax']['taxes']['chd1'] ?? null)
+                                            ? $invoiceMain->airticket['airticket_from_pax']['taxes']['chd1']
+                                            : 0 }}
                                     </td>
+
+                                    {{-- Subtotal --}}
                                     <td style="padding:2px;border:1px solid #ccc;text-align:right;">
-                                        {{ $invoiceMain->airticket && $invoiceMain->airticket['airticket_from_pax'] && isset($invoiceMain->airticket['airticket_from_pax']['subTotal']) && isset($invoiceMain->airticket['airticket_from_pax']['subTotal']['chd1']) ? $invoiceMain->airticket['airticket_from_pax']['subTotal']['chd1'] : '' }}
+                                        {{ is_numeric($invoiceMain->airticket['airticket_from_pax']['subTotal']['chd1'] ?? null)
+                                            ? $invoiceMain->airticket['airticket_from_pax']['subTotal']['chd1']
+                                            : 0 }}
                                     </td>
                                 </tr>
-                                <tr style="">
+
+                                <tr>
                                     <td style="padding:2px;border:1px solid #ccc;">Infant</td>
+
+                                    {{-- Base Fare --}}
                                     <td style="padding:2px;border:1px solid #ccc;text-align:right;">
-                                        {{ $invoiceMain->airticket && $invoiceMain->airticket['airticket_from_pax'] && isset($invoiceMain->airticket['airticket_from_pax']['baseFare']) && isset($invoiceMain->airticket['airticket_from_pax']['baseFare']['inf1']) ? $invoiceMain->airticket['airticket_from_pax']['baseFare']['inf1'] : '' }}
+                                        {{ is_numeric($invoiceMain->airticket['airticket_from_pax']['baseFare']['inf1'] ?? null)
+                                            ? $invoiceMain->airticket['airticket_from_pax']['baseFare']['inf1']
+                                            : 0 }}
                                     </td>
+
+                                    {{-- GST/HST --}}
                                     <td style="padding:2px;border:1px solid #ccc;text-align:right;">
-                                        {{ $invoiceMain->airticket && $invoiceMain->airticket['airticket_from_pax'] && isset($invoiceMain->airticket['airticket_from_pax']['gstHst']) && isset($invoiceMain->airticket['airticket_from_pax']['gstHst']['inf1']) ? $invoiceMain->airticket['airticket_from_pax']['gstHst']['inf1'] : '' }}
+                                        {{ is_numeric($invoiceMain->airticket['airticket_from_pax']['gstHst']['inf1'] ?? null)
+                                            ? $invoiceMain->airticket['airticket_from_pax']['gstHst']['inf1']
+                                            : 0 }}
                                     </td>
+
+                                    {{-- Taxes --}}
                                     <td style="padding:2px;border:1px solid #ccc;text-align:right;">
-                                        {{ $invoiceMain->airticket && $invoiceMain->airticket['airticket_from_pax'] && isset($invoiceMain->airticket['airticket_from_pax']['taxes']) && isset($invoiceMain->airticket['airticket_from_pax']['taxes']['inf1']) ? $invoiceMain->airticket['airticket_from_pax']['taxes']['inf1'] : '' }}
+                                        {{ is_numeric($invoiceMain->airticket['airticket_from_pax']['taxes']['inf1'] ?? null)
+                                            ? $invoiceMain->airticket['airticket_from_pax']['taxes']['inf1']
+                                            : 0 }}
                                     </td>
+
+                                    {{-- Subtotal --}}
                                     <td style="padding:2px;border:1px solid #ccc;text-align:right;">
-                                        {{ $invoiceMain->airticket && $invoiceMain->airticket['airticket_from_pax'] && isset($invoiceMain->airticket['airticket_from_pax']['subTotal']) && isset($invoiceMain->airticket['airticket_from_pax']['subTotal']['inf1']) ? $invoiceMain->airticket['airticket_from_pax']['subTotal']['inf1'] : '' }}
+                                        {{ is_numeric($invoiceMain->airticket['airticket_from_pax']['subTotal']['inf1'] ?? null)
+                                            ? $invoiceMain->airticket['airticket_from_pax']['subTotal']['inf1']
+                                            : 0 }}
                                     </td>
                                 </tr>
                                 <tr style="">
