@@ -286,12 +286,18 @@
                             <!-- // if true show tik if false show X -->
                             <table style="width:100%;">
                                 <tr>
-                                    <td>Canadian Passport: {{ $invoiceMain->valid_canadian_passport ? 'Yes' : 'No' }}
+                                    <td>Canadian Passport:
+                                        {!! $invoiceMain->valid_canadian_passport === 'true' ? '✔️' : '❌' !!}
                                     </td>
                                     <td>Canadian Citizenship or PR Card:
-                                        {{ $invoiceMain->canadian_citizenship_or_prCard ? 'Yes' : 'No' }}</td>
-                                    <td>Valid Travel Visa: {{ $invoiceMain->valid_travel_visa ? 'Yes' : 'No' }}</td>
-                                    <td>Tourist Card: {{ $invoiceMain->tourist_card ? 'Yes' : 'No' }}</td>
+                                        {!! $invoiceMain->canadian_citizenship_or_prCard === 'true' ? '✔️' : '❌' !!}
+                                    </td>
+                                    <td>Valid Travel Visa:
+                                        {!! $invoiceMain->valid_travel_visa === 'true' ? '✔️' : '❌' !!}
+                                    </td>
+                                    <td>Tourist Card:
+                                        {!! $invoiceMain->tourist_card === 'true' ? '✔️' : '❌' !!}
+                                    </td>
                                 </tr>
                             </table>
                             <p><strong>Special Remarks:</strong><br>**IMPORTANT NOTE:** Passengers must ensure that the
