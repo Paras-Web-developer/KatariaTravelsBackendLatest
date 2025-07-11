@@ -14,6 +14,4 @@ use Illuminate\Support\Facades\Schedule;
 
 Schedule::job(new SendFollowupRemindersJob())->everyMinute();
 Schedule::job(new AutoLogoutInactiveUsers())->everyMinute();
-Schedule::job(new AutoLogoutInactiveTokens())->everyMinute();
-
 
