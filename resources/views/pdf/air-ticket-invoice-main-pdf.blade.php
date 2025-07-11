@@ -46,7 +46,7 @@
                     <tr>
                         <td style="font-size: 11px;">
                             <table width="100%" cellpadding="0" cellspacing="0" border="0">
-                                <tr style="background:#a0aec0;color:#fff">
+                                <tr style="background:#a0aec0;color:#000">
                                     <td colspan="4" style="padding:4px;">Booking Details</td>
                                 </tr>
                                 <tr style="background:#f2f2f2;">
@@ -109,7 +109,7 @@
                     <tr>
                         <td style="font-size: 11px;">
                             <table width="100%" cellpadding="0" cellspacing="0" border="0">
-                                <tr style="background:#a0aec0;color:#fff;">
+                                <tr style="background:#a0aec0;color:#000;">
                                     <td colspan="7" style="padding:4px;">Flight Information</td>
                                 </tr>
                                 <tr style="background:#f2f2f2;">
@@ -144,7 +144,7 @@
                     <tr>
                         <td style="font-size: 11px;">
                             <table width="100%" cellpadding="0" cellspacing="0" border="0">
-                                <tr style="background:#a0aec0;color:#fff;">
+                                <tr style="background:#a0aec0;color:#000;">
                                     <td colspan="5" style="padding:4px;">Fare Summary</td>
                                 </tr>
                                 <tr style="background:#f2f2f2;">
@@ -315,8 +315,8 @@
 
                     <!-- FOOTER -->
                     <tr>
-                        <td style="background:#f9f9f9;text-align:center;padding:15px;color:#666;">
-                            <div style="color:#a0aec0;font-weight:bold;font-size:16px;">TRAVEL LIKE A BOSS</div>
+                        <td style="background:#f9f9f9;text-align:center;padding:15px;color:#000;">
+                            <div style="color:#000;font-weight:bold;font-size:16px;">TRAVEL LIKE A BOSS</div>
                             <div>2883 Derry Rd E, Mississauga, ON L4T 1A6, Canada</div>
                             <div>Contact: support@katariatravel.ca | Tel: 905 678 1200 | Fax: 905 678 1201</div>
                         </td>
