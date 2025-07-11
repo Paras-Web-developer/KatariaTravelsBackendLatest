@@ -287,19 +287,16 @@
                             <table style="width:100%;">
                                 <tr>
                                     <td>Canadian Passport:
-                                        {!! $invoiceMain->valid_canadian_passport === 'true' ? '✔️' : '❌' !!}
-                                    </td>
+                                        {{ $invoiceMain->valid_canadian_passport === 'true' ? 'Yes' : 'No' }}</td>
                                     <td>Canadian Citizenship or PR Card:
-                                        {!! $invoiceMain->canadian_citizenship_or_prCard === 'true' ? '✔️' : '❌' !!}
+                                        {{ $invoiceMain->canadian_citizenship_or_prCard === 'true' ? 'Yes' : 'No' }}
                                     </td>
                                     <td>Valid Travel Visa:
-                                        {!! $invoiceMain->valid_travel_visa === 'true' ? '✔️' : '❌' !!}
-                                    </td>
-                                    <td>Tourist Card:
-                                        {!! $invoiceMain->tourist_card === 'true' ? '✔️' : '❌' !!}
-                                    </td>
+                                        {{ $invoiceMain->valid_travel_visa === 'true' ? 'Yes' : 'No' }}</td>
+                                    <td>Tourist Card: {{ $invoiceMain->tourist_card === 'true' ? 'Yes' : 'No' }}</td>
                                 </tr>
                             </table>
+
                             <p><strong>Special Remarks:</strong><br>**IMPORTANT NOTE:** Passengers must ensure that the
                                 name on their ticket matches their passport's name. For those traveling through the USA,
                                 a valid visa is required. Passengers flying via Europe must present a valid and stamped
