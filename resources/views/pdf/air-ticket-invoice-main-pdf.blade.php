@@ -155,9 +155,13 @@
                                     <th style="padding:2px;border:1px solid #ccc;text-align:right;">Total</th>
                                 </tr>
                                 <tr style="">
-                                    <td style="padding:2px;border:1px solid #ccc;">Adult:
-                                        {{ $invoiceMain->airticket && $invoiceMain->airticket['passengers'] && isset($invoiceMain->airticket['passengers']['adt']) ? $invoiceMain->airticket['passengers']['adt'] : '' }}
+                                    <td style="padding:2px;border:1px solid #ccc;">
+                                        Adult:
+                                        {{ is_numeric($invoiceMain->airticket['passengers']['adt'] ?? null)
+                                            ? $invoiceMain->airticket['passengers']['adt']
+                                            : 0 }}
                                     </td>
+
                                     <td style="padding:2px;border:1px solid #ccc;text-align:right;">
                                         {{ $invoiceMain->airticket && $invoiceMain->airticket['airticket_from_pax'] && isset($invoiceMain->airticket['airticket_from_pax']['baseFare']) && isset($invoiceMain->airticket['airticket_from_pax']['baseFare']['adt1']) ? $invoiceMain->airticket['airticket_from_pax']['baseFare']['adt1'] : '' }}
                                     </td>
@@ -175,9 +179,13 @@
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td style="padding:2px;border:1px solid #ccc;">Child:
-                                        {{ $invoiceMain->airticket && $invoiceMain->airticket['passengers'] && isset($invoiceMain->airticket['passengers']['chd']) ? $invoiceMain->airticket['passengers']['chd'] : '' }}
+                                    <td style="padding:2px;border:1px solid #ccc;">
+                                        Child:
+                                        {{ is_numeric($invoiceMain->airticket['passengers']['chd'] ?? null)
+                                            ? $invoiceMain->airticket['passengers']['chd']
+                                            : 0 }}
                                     </td>
+
 
                                     {{-- Base Fare --}}
                                     <td style="padding:2px;border:1px solid #ccc;text-align:right;">
@@ -209,9 +217,13 @@
                                 </tr>
 
                                 <tr>
-                                    <td style="padding:2px;border:1px solid #ccc;">Infant:
-                                        {{ $invoiceMain->airticket && $invoiceMain->airticket['passengers'] && isset($invoiceMain->airticket['passengers']['inf']) ? $invoiceMain->airticket['passengers']['inf'] : '' }}
+                                    <td style="padding:2px;border:1px solid #ccc;">
+                                        Infant:
+                                        {{ is_numeric($invoiceMain->airticket['passengers']['inf'] ?? null)
+                                            ? $invoiceMain->airticket['passengers']['inf']
+                                            : 0 }}
                                     </td>
+
 
                                     {{-- Base Fare --}}
                                     <td style="padding:2px;border:1px solid #ccc;text-align:right;">
